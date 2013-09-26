@@ -1,4 +1,5 @@
 require 'spec_helper'
+require_relative '../../lib/rspec/its.rb'
 
 module RSpec::Core
   describe MemoizedHelpers do

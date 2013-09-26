@@ -1,4 +1,9 @@
+(The MIT License)
+
 Copyright (c) 2013 Peter Alfvin
+Copyright (c) 2012 David Chelimsky, Myron Marston
+Copyright (c) 2006 David Chelimsky, The RSpec Development Team
+Copyright (c) 2005 Steven Baker
 
 MIT License
 

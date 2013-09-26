@@ -1,3 +1,4 @@
 1. Why aren't all dependencies expressed in .gemspec file?
-2. I just copied spec_helper.rb from collection_matchers. Is that ok?
+2. What responsibilities do I have to test in other environments?
+3. Do I need to worry about CI?
 

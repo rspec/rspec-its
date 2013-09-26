@@ -15,5 +15,4 @@ end
 gem 'simplecov'
 gem 'coveralls'
 gem 'aruba'
-gem 'spork'
 gem 'cucumber'

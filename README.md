@@ -1,6 +1,6 @@
 # Rspec::Its
 
-TODO: Write a gem description
+RSpec::Its provides the `its` method as a short-hand to specify the expected value of an attribute.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
 
 ## Contributing
 
