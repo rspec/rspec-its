@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rspec::Its::VERSION
   spec.authors       = ["Peter Alfvin"]
   spec.email         = ["palfvin@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{RSpec extension gem for attribute matching}
+  spec.summary       = %q{Provides "its" method formally part of rspec-core}
   spec.homepage      = ""
   spec.license       = "MIT"
 

@@ -1,0 +1,3 @@
+1. Why aren't all dependencies expressed in .gemspec file?
+2. I just copied spec_helper.rb from collection_matchers. Is that ok?
+
