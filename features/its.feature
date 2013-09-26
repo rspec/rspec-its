@@ -1,7 +1,5 @@
 Feature: attribute of subject
 
-  WARNING: `its` will be extracted from rspec-core-3.0 into its own gem.
-
   Use the `its` method as a short-hand to generate a nested example group with
   a single example that specifies the expected value of an attribute of the
   subject.  This can be used with an implicit or explicit subject.

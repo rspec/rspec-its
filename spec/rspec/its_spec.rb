@@ -100,8 +100,7 @@ module RSpec::Core
             end
           end
 
-          puts group.inspect;
-          expect(group.run).to be_truthy
+          expect(group.run(NullObject.new)).to be_truthy
         end
       end
 
