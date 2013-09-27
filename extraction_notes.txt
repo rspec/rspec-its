@@ -1,5 +1,0 @@
-1. Why aren't all dependencies expressed in .gemspec file?
-2. What responsibilities do I have to test in other environments?
-3. Do I need to worry about CI?
-4. Does anything else use NullObject and the redefined run?  (Presumably yes)
-
