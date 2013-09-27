@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rspec/its'
 
 module RSpec::Core
   describe MemoizedHelpers do
@@ -147,6 +146,22 @@ module RSpec::Core
         its(nil) { expect(@subject_in_before).to eq('my subject') }
         its(nil) { expect(subject_in_let).to eq('my subject') }
         its(nil) { expect(eager_loaded_subject_in_let).to eq('my subject') }
+      end
+
+      context "in a shared context" do
+        it 'supports `its` with an implicit subject' do
+          shared = Module.new do
+            extend RSpec::SharedContext
+            its(:size) { should eq 0 }
+          end
+
+          group = RSpec::Core::ExampleGroup.describe(Array) do
+            include shared
+          end
+
+          group.run(NullObject.new)
+          expect(group.children.first.examples.first.execution_result).to include(:status => "passed")
+        end
       end
     end
   end

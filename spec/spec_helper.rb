@@ -8,6 +8,7 @@ class NullObject
     # ignore
   end
 end
+null_formatter = NullObject.new
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
