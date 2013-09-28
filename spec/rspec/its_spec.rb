@@ -100,7 +100,7 @@ module RSpec::Core
             end
           end
 
-          expect(group.run(NullObject.new)).to be_truthy
+          expect(group.run(NullFormatter.new)).to be_truthy
         end
       end
 
@@ -159,7 +159,7 @@ module RSpec::Core
             include shared
           end
 
-          group.run(NullObject.new)
+          group.run(NullFormatter.new)
           expect(group.children.first.examples.first.execution_result).to include(:status => "passed")
         end
       end

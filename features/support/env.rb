@@ -1,4 +1,6 @@
 require 'aruba/cucumber'
+require 'rspec/core'
+require 'rspec/its'
 
 Before do
   if RUBY_PLATFORM =~ /java/ || defined?(Rubinius)

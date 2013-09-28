@@ -1,5 +1,13 @@
 # require 'rspec/core'  # to fix annoying "undefined method `configuration' for RSpec:Module (NoMethodError)"
 
+When /^I run rspec( with the documentation option)?$/ do |documentation|
+  rspec_its_gem_location = File.expand_path('../../../lib/rspec/its', __FILE__)
+  require_option = "--require #{rspec_its_gem_location}"
+  format_option = documentation ? "--format documentation" : ""
+  rspec_command = ['rspec', require_option, format_option, 'example_spec.rb'].join(' ')
+  step "I run `#{rspec_command}`"
+end
+
 Then /^the output should contain all of these:$/ do |table|
   table.raw.flatten.each do |string|
     assert_partial_output(string, all_output)
