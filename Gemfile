@@ -13,7 +13,7 @@ gemspec
 end
 
 # test coverage
-gem 'simplecov', require: false
-gem 'coveralls', require: false
+gem 'simplecov', :require => false
+gem 'coveralls', :require => false
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
