@@ -5,7 +5,7 @@ require 'rspec/its/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rspec-its"
-  spec.version       = Rspec::Its::VERSION
+  spec.version       = RSpec::Its::VERSION
   spec.authors       = ["Peter Alfvin"]
   spec.email         = ["palfvin@gmail.com"]
   spec.description   = %q{RSpec extension gem for attribute matching}
