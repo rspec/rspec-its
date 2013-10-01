@@ -147,8 +147,7 @@ module RSpec
       end
 
       context "in a shared context" do
-        pending("resolution of the 'extend' problem") do
-        it 'supports `its` with an implicit subject' do
+        it 'supports "its" with an implicit subject' do
           shared = Module.new do
             extend RSpec::SharedContext
             its(:size) { should eq 0 }
@@ -160,7 +159,6 @@ module RSpec
           group.run(NullFormatter.new)
           expect(group.children.first.examples.first.execution_result).to include(:status => "passed")
         end
-        end # of pending
       end
     end
   end

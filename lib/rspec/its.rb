@@ -100,3 +100,5 @@ end
 RSpec.configure do |rspec|
   rspec.extend RSpec::Its
 end
+
+RSpec::SharedContext.send(:include, RSpec::Its)
