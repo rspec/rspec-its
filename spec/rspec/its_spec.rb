@@ -146,8 +146,17 @@ module RSpec
         its(nil) { expect(eager_loaded_subject_in_let).to eq('my subject') }
       end
 
-      context "in a shared context" do
-        it 'supports "its" with an implicit subject' do
+      describe "in shared_context" do
+        shared_context "shared stuff" do
+          subject {Array}
+          its(:name) {should eq "Array"}
+        end
+
+        include_context "shared stuff"
+      end
+
+      describe "when extending SharedContext" do
+        it 'works with an implicit subject' do
           shared = Module.new do
             extend RSpec::SharedContext
             its(:size) { should eq 0 }
@@ -162,4 +171,6 @@ module RSpec
       end
     end
   end
+
+
 end
