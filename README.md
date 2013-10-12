@@ -1,4 +1,4 @@
-# Rspec::Its [![Build Status](https://travis-ci.org/palfvin/rspec-its.png)](https://travis-ci.org/palfvin/rspec-its)
+# RSpec::Its [![Build Status](https://travis-ci.org/palfvin/rspec-its.png)](https://travis-ci.org/palfvin/rspec-its)
 
 RSpec::Its provides the `its` method as a short-hand to specify the expected value of an attribute.
 
