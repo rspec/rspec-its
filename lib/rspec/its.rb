@@ -90,7 +90,8 @@ module RSpec
           RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
         end
 
-        example(&block)
+        calls_without_rspec_its = caller.select {|l| l !~ /\/lib\/rspec\/its/ }
+        example(nil, caller: calls_without_rspec_its, &block)
       end
     end
 
