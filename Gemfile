@@ -14,11 +14,13 @@ gemspec
 end
 
 # only pull rspec-support from master
+
 gem "rspec-support", :git => "git://github.com/rspec/rspec-support.git"
 
 # test coverage
-gem 'simplecov', :require => false
-gem 'coveralls', :require => false
+# gem 'simplecov', :require => false
+
+gem 'coveralls', :require => false, :platform => :mri_20
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
 
