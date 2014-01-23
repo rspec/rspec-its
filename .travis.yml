@@ -13,7 +13,7 @@ rvm:
   - 2.1.0
 env:
   - BRANCH=master
-  - BRANCH=2.99-maintenance
+  - BRANCH=2-99-maintenance
 matrix:
   allow_failures:
     - rvm: rbx-19mode
