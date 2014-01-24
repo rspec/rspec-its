@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'rspec-core', '>= 2.99.0.beta1'
-  spec.add_runtime_dependency 'rspec-expectations', '>= 2.99.beta1'
+  spec.add_runtime_dependency 'rspec-expectations', '>= 2.99.0.beta1'
   spec.add_development_dependency 'bundler',  '~> 1.3'
   spec.add_development_dependency 'rake',     '~> 10.1.0'
   spec.add_development_dependency 'cucumber', '~> 1.3.8'
