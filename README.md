@@ -20,7 +20,7 @@ Or install it yourself as:
 
 Use the `its` method  to generate a nested example group with
 a single example that specifies the expected value of an attribute of the
-subject.  This can be used with an implicit or explicit subject.
+subject using `should`, `should_not` or `is_expected`.
 
 `its` accepts a symbol or a string, and a block representing the example.
 
@@ -30,12 +30,12 @@ subject.  This can be used with an implicit or explicit subject.
 You can use a string with dots to specify a nested attribute (i.e. an
 attribute of the attribute of the subject).
 
-    its("phone_numbers.size") { should eq(2) }
+    its("phone_numbers.size") { should_not eq(0) }
 
 When the subject is a hash, you can pass in an array with a single key to
 access the value at that key in the hash.
 
-    its([:key]) { should eq(value) }
+    its([:key]) { is_expected.to eq(value) }
 
 ## Contributing
 

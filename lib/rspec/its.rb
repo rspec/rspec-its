@@ -58,6 +58,15 @@ module RSpec
     #     its(:count) { should eq(2) }
     #   end
     #
+    # With an implicit subject, `is_expected` can be used as an alternative
+    # to `should` (e.g. for one-liner use)
+    #
+    # @example
+    #
+    #   describe Array do
+    #     its(:size) { is_expected.to eq(0) }
+    #   end
+    #
     # Note that this method does not modify `subject` in any way, so if you
     # refer to `subject` in `let` or `before` blocks, you're still
     # referring to the outer subject.
@@ -80,6 +89,10 @@ module RSpec
               inner_subject.send(attr)
             end
           end
+        end
+
+        def is_expected
+          expect(__its_subject)
         end
 
         def should(matcher=nil, message=nil)

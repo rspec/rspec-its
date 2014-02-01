@@ -5,7 +5,7 @@ Breaking Changes:
 
 
 Enhancements:
-
+* Add `is_expected` support to match RSpec 3.0
 
 Deprecations:
 
