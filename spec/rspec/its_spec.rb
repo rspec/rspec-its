@@ -41,6 +41,15 @@ module RSpec
         its("name")            { should eq("John") }
         its("name.size")       { should eq(4) }
         its("name.size.class") { should eq(Fixnum) }
+
+        context "using should_not" do
+          its("name")          { should_not eq("Paul") }
+        end
+
+        context "using is_expected" do
+          its("name")          { is_expected.to eq("John") }
+        end
+
       end
 
       context "when it responds to #[]" do
@@ -61,7 +70,7 @@ module RSpec
         its(['a']) { should eq("String: a") }
         its([:b, 'c', 4]) { should eq("Symbol: b; String: c; Fixnum: 4") }
         its(:name) { should eq("George") }
-        context "when referring to an attribute without the proper array syntax" do
+        context "when referring to an attribute that doesn't exist" do
           context "it raises an error" do
             its(:age) do
               expect do
