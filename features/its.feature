@@ -120,3 +120,16 @@ Feature: attribute of subject
       """
     When I run rspec
     Then the examples should all pass
+
+ Scenario: exclude rspec/its from backtrace
+    Given a file named "example_spec.rb" with:
+      """ruby
+      describe Array do
+        context "when first created" do
+          its(:size) { should_not eq(0) }
+        end
+      end
+      """
+    When I run rspec
+    Then the output should contain "1 example, 1 failure"
+      But the output should not match /#[^\n]*rspec[\x2f]its/

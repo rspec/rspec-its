@@ -112,6 +112,7 @@ end
 
 RSpec.configure do |rspec|
   rspec.extend RSpec::Its
+  rspec.backtrace_exclusion_patterns << %r(lib/rspec/its)
 end
 
 RSpec::SharedContext.send(:include, RSpec::Its)
