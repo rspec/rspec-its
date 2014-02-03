@@ -104,7 +104,7 @@ module RSpec
         end
 
         its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
-        example(nil, caller: its_caller, &block)
+        example(nil, :caller => its_caller, &block)
 
       end
     end
