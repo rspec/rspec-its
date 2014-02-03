@@ -1,8 +1,8 @@
 Feature: attribute of subject
 
-  Use the `its` method as a short-hand to generate a nested example group with
+  Use the `its` method to generate a nested example group with
   a single example that specifies the expected value of an attribute of the
-  subject.  This can be used with an implicit or explicit subject.
+  subject using `should`, `should_not` or `is_expected`.
 
   `its` accepts a symbol or a string, and a block representing the example.
 
@@ -12,12 +12,12 @@ Feature: attribute of subject
   You can use a string with dots to specify a nested attribute (i.e. an
   attribute of the attribute of the subject).
 
-      its("phone_numbers.size") { should eq(2) }
+      its("phone_numbers.size") { should_not eq(0) }
 
   When the subject is a hash, you can pass in an array with a single key to
   access the value at that key in the hash.
 
-      its([:key]) { should eq(value) }
+      its([:key]) { is_expected.to eq(value) }
 
   Scenario: specify value of an attribute
     Given a file named "example_spec.rb" with:
@@ -121,7 +121,7 @@ Feature: attribute of subject
     When I run rspec
     Then the examples should all pass
 
- Scenario: exclude rspec/its from backtrace
+ Scenario: failures are correctly reported as coming from the `its` line
     Given a file named "example_spec.rb" with:
       """ruby
       describe Array do
@@ -131,5 +131,5 @@ Feature: attribute of subject
       end
       """
     When I run rspec
-    Then the output should contain "1 example, 1 failure"
-      But the output should not match /#[^\n]*rspec[\x2f]its/
+    Then the output should contain "Failure/Error: its(:size) { should_not eq(0) }"
+      And the output should not match /#[^\n]*rspec[\x2f]its/

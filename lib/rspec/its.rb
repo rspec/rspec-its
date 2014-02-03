@@ -103,7 +103,9 @@ module RSpec
           RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
         end
 
-        example(&block)
+        its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
+        example(nil, caller: its_caller, &block)
+
       end
     end
 
@@ -112,7 +114,7 @@ end
 
 RSpec.configure do |rspec|
   rspec.extend RSpec::Its
-  rspec.backtrace_exclusion_patterns << %r(lib/rspec/its)
+  rspec.backtrace_exclusion_patterns << %r(/lib/rspec/its)
 end
 
 RSpec::SharedContext.send(:include, RSpec::Its)

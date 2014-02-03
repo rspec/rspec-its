@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-Use the `its` method  to generate a nested example group with
+Use the `its` method to generate a nested example group with
 a single example that specifies the expected value of an attribute of the
 subject using `should`, `should_not` or `is_expected`.
 
