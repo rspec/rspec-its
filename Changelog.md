@@ -1,4 +1,4 @@
-### 1.0.0 Development
+### 1.0.0 / 2014-02-07
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0.pre...master)
 
 Breaking Changes:
@@ -11,6 +11,7 @@ Deprecations:
 
 
 Bug Fixes:
+* Report failures and backtrace from client perspective
 
 
 ### 1.0.0.pre / 2013-10-11

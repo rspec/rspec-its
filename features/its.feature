@@ -1,42 +1,5 @@
 Feature: attribute of subject
 
-  Use the `its` method as a short-hand to generate a nested example group with
-  a single example that specifies the expected value of an attribute of the
-  subject.  This can be used with an implicit or explicit subject.
-
-  `its` accepts a symbol or a string, and a block representing the example.
-
-      its(:size)    { should eq(1) }
-      its("length") { should eq(1) }
-
-  You can use a string with dots to specify a nested attribute (i.e. an
-  attribute of the attribute of the subject).
-
-      its("phone_numbers.size") { should eq(2) }
-
-  When the subject is a hash, you can pass in an array with a single key to
-  access the value at that key in the hash.
-
-      its([:key]) { should eq(value) }
-
-  Scenario: specify value of an attribute
-    Given a file named "example_spec.rb" with:
-      """ruby
-      describe Array do
-        context "when first created" do
-          its(:size) { should eq(0) }
-        end
-      end
-      """
-    When I run rspec with the documentation option
-    Then the output should contain:
-      """
-      Array
-        when first created
-          size
-            should eq 0
-      """
-
   Scenario: specify value of a nested attribute
     Given a file named "example_spec.rb" with:
       """ruby
