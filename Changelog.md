@@ -1,5 +1,5 @@
 ### 1.0.0 / 2014-02-07
-[full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0.pre...master)
+[full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0.pre...v1.0.0)
 
 Breaking Changes:
 
