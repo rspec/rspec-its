@@ -5,16 +5,16 @@ rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-  - ree
-  - jruby-18mode
-  - jruby-19mode
-  - rbx
   - 2.0.0
   - 2.1.0
+  - ree
+  - jruby-18mode
+  - jruby
+  - rbx
 env:
   - BRANCH=master
   - BRANCH=2-99-maintenance
 matrix:
   allow_failures:
-    - rvm: rbx-19mode
-    - rvm: rbx-18mode
+    - rvm: jruby-18mode
+
