@@ -79,6 +79,7 @@ module RSpec
     #     its(:age) { should eq(25) }
     #   end
     def its(attribute, &block)
+      attribute = attribute.to_s if Symbol === attribute
       describe(attribute) do
         if Array === attribute
           let(:__its_subject) { subject[*attribute] }
