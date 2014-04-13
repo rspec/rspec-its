@@ -179,8 +179,8 @@ module RSpec
             end
 
             group.run(NullFormatter.new)
-
-            expect(group.children.first.examples.first.execution_result.status).to eq(:passed)
+            # Using [:status].to_sym in following instead of .status due to need to run in RSpec 2.99
+            expect(group.children.first.examples.first.execution_result[:status].to_sym).to eq(:passed)
           end
         end
       end
