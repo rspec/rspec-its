@@ -1,3 +1,9 @@
+### 1.0.1 / 2014-04-13
+[full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0...v1.0.1)
+
+Bug fixes:
+* Maintain implicit subject in all cases (addresses problem with latest RSpec 3 version)
+
 ### 1.0.0 / 2014-02-07
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0.pre...v1.0.0)
 
