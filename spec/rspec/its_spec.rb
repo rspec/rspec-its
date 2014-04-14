@@ -182,8 +182,11 @@ module RSpec
             end
 
             group.run(NullFormatter.new)
-            # Using to_h[:status].to_sym in following instead of .status due to need to run in RSpec 2.99
-            expect(group.children.first.examples.first.execution_result.to_h[:status].to_sym).to eq(:passed)
+
+            result = group.children.first.examples.first.execution_result
+            # Following conditional needed to work across mix of RSpec and ruby versions without warning
+            status = result.respond_to?(:status) ? result.status : result[:status].to_sym
+            expect(status).to eq(:passed)
           end
         end
       end
