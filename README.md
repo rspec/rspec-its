@@ -16,6 +16,10 @@ Or install it yourself as:
 
     $ gem install rspec-its
 
+And require it as:
+
+    require 'rspec/its'
+
 ## Usage
 
 Use the `its` method to generate a nested example group with
