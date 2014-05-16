@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["palfvin@gmail.com"]
   spec.description   = %q{RSpec extension gem for attribute matching}
   spec.summary       = %q{Provides "its" method formally part of rspec-core}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/rspec/rspec-its"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
