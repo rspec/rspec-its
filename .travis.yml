@@ -7,14 +7,14 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
+  - 2.1.1
+  - 2.1.2
   - ree
   - jruby-18mode
   - jruby
-  - rbx
-env:
-  - BRANCH=master
-  - BRANCH=2-99-maintenance
 matrix:
   allow_failures:
-    - rvm: jruby-18mode
+    - rvm: jruby-head
+    - rvm: ruby-head
+    - rbx
 
