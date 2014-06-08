@@ -22,6 +22,14 @@ module RSpec
           end.new
         end
 
+        before(:each, :meta) do
+          subject.call_count
+        end
+
+        context "with some metadata" do
+          its(:call_count, :meta) { should eq(2) }
+        end
+
         context "with a call counter" do
           its(:call_count) { should eq(1) }
         end

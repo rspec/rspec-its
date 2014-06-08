@@ -67,6 +67,25 @@ module RSpec
     #     its(:size) { is_expected.to eq(0) }
     #   end
     #
+    # You can pass more than one arguments on the `its` block to add
+    # some options to the generated example
+    #
+    # @example
+    #
+    #   # This ...
+    #   describe Array do
+    #     its(:size, :focus) { should eq(0) }
+    #   end
+    #
+    #   # ... generates the same runtime structure as this:
+    #   describe Array do
+    #     describe "size" do
+    #       it "should eq(0)", :focus do
+    #         subject.size.should eq(0)
+    #       end
+    #     end
+    #   end
+    #
     # Note that this method does not modify `subject` in any way, so if you
     # refer to `subject` in `let` or `before` blocks, you're still
     # referring to the outer subject.
@@ -78,7 +97,7 @@ module RSpec
     #     before { subject.age = 25 }
     #     its(:age) { should eq(25) }
     #   end
-    def its(attribute, &block)
+    def its(attribute, *options, &block)
       describe(attribute.to_s) do
         if Array === attribute
           let(:__its_subject) { subject[*attribute] }
@@ -104,7 +123,7 @@ module RSpec
         end
 
         its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
-        example(nil, :caller => its_caller, &block)
+        example(nil, *options, :caller => its_caller, &block)
 
       end
     end
