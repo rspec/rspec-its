@@ -1,4 +1,5 @@
 require 'rspec/its/version'
+require 'rspec/its/expect_its'
 require 'rspec/core'
 
 module RSpec
