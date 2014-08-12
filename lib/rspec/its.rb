@@ -104,7 +104,7 @@ module RSpec
           let(:__its_subject) do
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
-              attr[0] == '@' ? inner_subject.instance_variable_get(attr) : inner_subject.send(attr)
+              attr[0].chr == '@' ? inner_subject.instance_variable_get(attr) : inner_subject.send(attr)
             end
           end
         end
