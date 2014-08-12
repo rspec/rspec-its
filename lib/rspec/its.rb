@@ -39,6 +39,24 @@ module RSpec
     #     its("phone_numbers.first") { should eq("555-1212") }
     #   end
     #
+    # The attribute can be an instance variable as a `String`. You can also provide a `String`
+    # with dots, the result is as though you concatenated that `String`
+    # onto the subject in an expression.
+    #
+    # @example
+    #
+    #   class Person
+    #     def initialize
+    #       @accounts_loaded = false
+    #     end
+    #   end
+    #
+    #   describe Person do
+    #     subject { Person.new }
+    #
+    #     its("@accounts_loaded") { is_expected.to be_falsey }
+    #   end
+    #
     # When the subject is a `Hash`, you can refer to the Hash keys by
     # specifying a `Symbol` or `String` in an array.
     #
@@ -86,7 +104,7 @@ module RSpec
           let(:__its_subject) do
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
-              inner_subject.send(attr)
+              attr[0] == '@' ? inner_subject.instance_variable_get(attr) : inner_subject.send(attr)
             end
           end
         end
