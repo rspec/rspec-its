@@ -26,6 +26,43 @@ module RSpec
           its(:call_count) { should eq(1) }
         end
 
+        context "with a method argument" do
+          subject do
+            Class.new do
+              def call(input)
+                input.inspect
+              end
+            end.new
+          end
+          its(:call, :with => 123) { should eq('123')}
+        end
+
+        context "with multiple method arguments" do
+          subject do
+            Class.new do
+              def call(*args)
+                args.collect {|arg| arg.inspect }
+              end
+            end.new
+          end
+          its(:call, :with => [123, 'abc']) { should eq(['123', '"abc"'])}
+        end
+
+        context "with chained methods" do
+          subject do
+            Class.new do
+              def preprocessor
+                @preprocessor = 'hello'
+                self
+              end
+              def call(*args)
+                args.collect {|arg| arg.inspect }.push(@preprocessor)
+              end
+            end.new
+          end
+          its('preprocessor.call', :with => 123) { should eq(['123', 'hello'])}
+        end
+
         context "with nil value" do
           subject do
             Class.new do
