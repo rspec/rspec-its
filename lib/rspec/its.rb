@@ -78,7 +78,48 @@ module RSpec
     #     before { subject.age = 25 }
     #     its(:age) { should eq(25) }
     #   end
-    def its(attribute, &block)
+    def its(attribute, options = {}, &block)
+      if options.key?(:with)
+        its_method(attribute, *options[:with], &block)
+      else
+        its_attribute(attribute, &block)
+      end
+    end
+
+    private
+
+    def its_method(method, *parameters, &block)
+      describe("#{method} with #{parameters.inspect}") do
+        let(:__its_subject) do
+          method_chain = method.to_s.split('.')
+          method_chain.inject(subject) do |inner_subject, attr|
+            if attr == method_chain.last
+              inner_subject.send(attr, *parameters)
+            else
+              inner_subject.send(attr)
+            end
+          end
+        end
+
+        def is_expected
+          expect(__its_subject)
+        end
+
+        def should(matcher=nil, message=nil)
+          RSpec::Expectations::PositiveExpectationHandler.handle_matcher(__its_subject, matcher, message)
+        end
+
+        def should_not(matcher=nil, message=nil)
+          RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
+        end
+
+        its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
+        example(nil, :caller => its_caller, &block)
+
+      end
+    end
+
+    def its_attribute(attribute, &block)
       describe(attribute.to_s) do
         if Array === attribute
           let(:__its_subject) { subject[*attribute] }

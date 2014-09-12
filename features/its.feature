@@ -31,6 +31,22 @@ Feature: attribute of subject
             should eq "555-1212"
       """
 
+  Scenario: specify method call with arguements
+    Given a file named "example_spec.rb" with:
+      """ruby
+      describe 'Method' do
+        context "with single parameter" do
+          subject do
+            lambda {|input| input.inspect }
+          end
+
+          its(:call, :with => 123 ) { should eq("123") }
+        end
+      end
+      """
+    When I run rspec
+    Then the examples should all pass
+
   Scenario: specify value of an attribute of a hash
     Given a file named "example_spec.rb" with:
       """ruby
