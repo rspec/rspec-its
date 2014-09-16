@@ -86,6 +86,20 @@ module RSpec
               end
             end
           end
+
+          context "when it's a hash" do
+            subject { {a: {deep: {key: "value"}}} }
+
+            its([:a]) { should eq({deep: {key: "value"}}) }
+            its([:a, :deep]) { should eq({key: "value"}) }
+            its([:a, :deep, :key]) { should eq("value") }
+
+            context "when referring to a key that doesn't exist" do
+              its([:not_here]) { should be_nil }
+              its([:a, :ghost]) { should be_nil }
+              its([:deep, :ghost]) { expect { should eq("missing") }.to raise_error(NoMethodError) }
+            end
+          end
         end
 
         context "when it does not respond to #[]" do

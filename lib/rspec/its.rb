@@ -47,11 +47,13 @@ module RSpec
     #   describe "a configuration Hash" do
     #     subject do
     #       { :max_users => 3,
-    #         'admin' => :all_permissions }
+    #         'admin' => :all_permissions.
+    #         'john_doe' => {permissions: [:read, :write]}}
     #     end
     #
     #     its([:max_users]) { should eq(3) }
     #     its(['admin']) { should eq(:all_permissions) }
+    #     its(['john_doe', :permissions]) { should eq([:read, :write]) }
     #
     #     # You can still access to its regular methods this way:
     #     its(:keys) { should include(:max_users) }
@@ -80,10 +82,14 @@ module RSpec
     #   end
     def its(attribute, &block)
       describe(attribute.to_s) do
-        if Array === attribute
-          let(:__its_subject) { subject[*attribute] }
-        else
-          let(:__its_subject) do
+        let(:__its_subject) do
+          if Array === attribute
+            if Hash === subject
+              attribute.inject(subject) {|inner, attr| inner[attr] }
+            else
+              subject[*attribute]
+            end
+          else
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
               inner_subject.send(attr)
