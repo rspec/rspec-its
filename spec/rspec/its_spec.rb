@@ -88,10 +88,10 @@ module RSpec
           end
 
           context "when it's a hash" do
-            subject { {a: {deep: {key: "value"}}} }
+            subject { {:a => {:deep => {:key => "value"}}} }
 
-            its([:a]) { should eq({deep: {key: "value"}}) }
-            its([:a, :deep]) { should eq({key: "value"}) }
+            its([:a]) { should eq({:deep => {:key => "value"}}) }
+            its([:a, :deep]) { should eq({:key => "value"}) }
             its([:a, :deep, :key]) { should eq("value") }
 
             context "when referring to a key that doesn't exist" do

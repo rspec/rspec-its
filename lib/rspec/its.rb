@@ -48,7 +48,7 @@ module RSpec
     #     subject do
     #       { :max_users => 3,
     #         'admin' => :all_permissions.
-    #         'john_doe' => {permissions: [:read, :write]}}
+    #         'john_doe' => {:permissions => [:read, :write]}}
     #     end
     #
     #     its([:max_users]) { should eq(3) }
