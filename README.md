@@ -36,6 +36,10 @@ attribute of the attribute of the subject).
 
     its("phone_numbers.size") { should_not eq(0) }
 
+You can use a string with an @ to specify an instance variable which can also be nested if needed.
+
+    its("@my_instance_variable.attribute") { should_not eq(0) }
+
 When the subject is a hash, you can pass in an array with a single key to
 access the value at that key in the hash.
 

@@ -67,6 +67,40 @@ module RSpec
 
         end
 
+        context "with nested instance variable" do
+          class DummyAccounts
+            attr_reader :has_loaded
+
+            def initialize
+              @has_loaded = false
+            end
+          end
+
+          subject do
+            Class.new do
+              def initialize
+                @account = DummyAccounts.new
+              end
+
+              def name
+                "John"
+              end
+            end.new
+          end
+
+          its("@account.has_loaded")  { should be_falsey }
+          its("@account.class")       { should eq(DummyAccounts) }
+
+          context "using should_not" do
+            its("@account")           { should_not be_nil }
+          end
+
+          context "using is_expected" do
+            its("@account")           { is_expected.to be_a DummyAccounts }
+          end
+        end
+
+
         context "when it responds to #[]" do
           subject do
             Class.new do
