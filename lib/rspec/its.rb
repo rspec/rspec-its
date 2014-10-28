@@ -100,7 +100,8 @@ module RSpec
     #     its(:age) { should eq(25) }
     #   end
     def its(attribute, *options, &block)
-      describe(attribute.to_s) do
+      its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
+      describe(attribute.to_s, :caller => its_caller) do
         let(:__its_subject) do
           if Array === attribute
             if Hash === subject
@@ -128,7 +129,6 @@ module RSpec
           RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
         end
 
-        its_caller = caller.select {|file_line| file_line !~ %r(/lib/rspec/its) }
         options << { :caller => its_caller }
         example(nil, *options, &block)
 

@@ -96,3 +96,27 @@ Feature: attribute of subject
     When I run rspec
     Then the output should contain "Failure/Error: its(:size) { should_not eq(0) }"
       And the output should not match /#[^\n]*rspec[\x2f]its/
+
+ Scenario: examples can be specified by exact line number
+    Given a file named "example_spec.rb" with:
+      """ruby
+      describe Array do
+        context "when first created" do
+          its(:size) { should eq(0) }
+        end
+      end
+      """
+    When I run rspec specifying line number 3
+    Then the examples should all pass
+
+  Scenario: examples can be specified by line number within containing block
+    Given a file named "example_spec.rb" with:
+    """ruby
+      describe Array do
+        context "when first created" do
+          its(:size) { should eq(0) }
+        end
+      end
+      """
+    When I run rspec specifying line number 2
+    Then the examples should all pass

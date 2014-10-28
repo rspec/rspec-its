@@ -4,8 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 %w[rspec rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
-  branch = ENV.fetch('BRANCH','master')
-  next if branch == '2-99-maintenance' && lib == 'rspec-support'
+  branch = ENV.fetch('BRANCH','3-1-maintenance')
   library_path = File.expand_path("../../#{lib}", __FILE__)
   if File.exist?(library_path)
     gem lib, :path => library_path

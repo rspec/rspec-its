@@ -36,10 +36,24 @@ attribute of the attribute of the subject).
 
     its("phone_numbers.size") { should_not eq(0) }
 
-When the subject is a hash, you can pass in an array with a single key to
-access the value at that key in the hash.
+When the subject implements the `[]` operator, you can pass in an array with a single key to
+access the value of that operator.
 
     its([:key]) { is_expected.to eq(value) }
+
+For hashes, multiple keys within the array will result in successive accesses into the hash. For example:
+
+    subject { {key1: {key2: 3} } }
+    its([:key1, :key2]) { is_expected.to eq(3)
+
+For other objects, multiple keys within the array will be passed as separate arguments in a single method call to [], as in:
+
+    subject { Matrix[ [:a, :b], [:c, :d] ] }
+    its([1,1]) { should eq(:d) }
+
+Metadata arguments are supported.
+
+    its(:size, focus: true) { should eq(1) }
 
 ## Contributing
 

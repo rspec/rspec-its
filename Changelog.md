@@ -1,3 +1,16 @@
+### 1.1.0 / 2014-04-13
+[full changelog](http://github.com/rspec/rspec-its/compare/v1.0.1...v1.1.0)
+
+Breaking Changes:
+
+Enhancements:
+* For hashes, multiple array elements are treated as successive access keys
+* Metadata arguments are now supported
+
+Bug fixes:
+* Enable `its` example selection by line number in command line
+
+
 ### 1.0.1 / 2014-04-13
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.0.0...v1.0.1)
 
