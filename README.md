@@ -37,7 +37,7 @@ attribute of the attribute of the subject).
     its("phone_numbers.size") { should_not eq(0) }
 
 When the subject implements the `[]` operator, you can pass in an array with a single key to
-access the value of that operator.
+refer to the value returned by that operator when passed that key as an argument.
 
     its([:key]) { is_expected.to eq(value) }
 
