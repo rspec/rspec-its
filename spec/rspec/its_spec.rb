@@ -65,6 +65,9 @@ module RSpec
             its("name")          { is_expected.to eq("John") }
           end
 
+          context "using are_expected" do
+            its("name.chars.to_a")    { are_expected.to eq(%w[J o h n]) }
+          end
         end
 
         context "when it responds to #[]" do

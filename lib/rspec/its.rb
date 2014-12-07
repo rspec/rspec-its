@@ -120,6 +120,7 @@ module RSpec
         def is_expected
           expect(__its_subject)
         end
+        alias_method :are_expected, :is_expected
 
         def should(matcher=nil, message=nil)
           RSpec::Expectations::PositiveExpectationHandler.handle_matcher(__its_subject, matcher, message)
