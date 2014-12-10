@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Peter Alfvin"]
   spec.email         = ["palfvin@gmail.com"]
   spec.description   = %q{RSpec extension gem for attribute matching}
-  spec.summary       = %q{Provides "its" method formally part of rspec-core}
+  spec.summary       = %q{Provides "its" method formerly part of rspec-core}
   spec.homepage      = "https://github.com/rspec/rspec-its"
   spec.license       = "MIT"
 
