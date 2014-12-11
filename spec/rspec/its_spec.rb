@@ -218,6 +218,34 @@ module RSpec
             expect(status).to eq(:passed)
           end
         end
+
+        describe "with private method" do
+          subject do
+            Class.new do
+              def name
+                private_name
+              end
+              private
+              def private_name
+                "John"
+              end
+            end.new
+          end
+
+          context "when referring indirectly" do
+            its(:name) { is_expected.to eq "John" }
+          end
+
+          context "when attempting to refer directly" do
+            context "it raises an error" do
+              its(:private_name) do
+                expect do
+                  should eq("John")
+                end.to raise_error(NoMethodError) unless RUBY_VERSION == '1.8.7'
+              end
+            end
+          end
+        end
       end
       context "with metadata" do
         context "preserves access to metadata that doesn't end in hash" do
