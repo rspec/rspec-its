@@ -36,6 +36,14 @@ attribute of the attribute of the subject).
 
     its("phone_numbers.size") { should_not eq(0) }
 
+The following expect-style method is also available:
+
+    its(:size) { is_expected.to eq(1) }
+    
+as is this alias for pluralized use:
+
+    its(:keys) { are_expected.to eq([:key1, :key2])
+    
 When the subject implements the `[]` operator, you can pass in an array with a single key to
 refer to the value returned by that operator when passed that key as an argument.
 
