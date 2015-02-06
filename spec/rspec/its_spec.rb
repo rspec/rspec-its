@@ -5,7 +5,7 @@ module RSpec
     describe "#its" do
       context "with implicit subject" do
         context "preserves described_class" do
-          its(:symbol) { expect(described_class).to be Its}
+          its(:symbol) { expect(described_class).to be Its }
           its([]) { expect(described_class).to be Its }
         end
       end
@@ -53,20 +53,20 @@ module RSpec
               end
             end.new
           end
-          its("name")            { should eq("John") }
-          its("name.size")       { should eq(4) }
+          its("name") { should eq("John") }
+          its("name.size") { should eq(4) }
           its("name.size.class") { should eq(Fixnum) }
 
           context "using should_not" do
-            its("name")          { should_not eq("Paul") }
+            its("name") { should_not eq("Paul") }
           end
 
           context "using is_expected" do
-            its("name")          { is_expected.to eq("John") }
+            its("name") { is_expected.to eq("John") }
           end
 
           context "using are_expected" do
-            its("name.chars.to_a")    { are_expected.to eq(%w[J o h n]) }
+            its("name.chars.to_a") { are_expected.to eq(%w[J o h n]) }
           end
         end
 
@@ -133,7 +133,9 @@ module RSpec
               its(:last) { should eq("a") }
 
               describe '.first' do
-                def subject; super().first; end
+                def subject;
+                  super().first;
+                end
 
                 its(:next) { should eq(2) }
               end
@@ -149,6 +151,7 @@ module RSpec
               def initialize
                 @counter = -1
               end
+
               def nil_if_first_time
                 @counter += 1
                 @counter == 0 ? nil : true
@@ -164,6 +167,7 @@ module RSpec
               def initialize
                 @counter = -1
               end
+
               def false_if_first_time
                 @counter += 1
                 @counter > 0
@@ -189,8 +193,8 @@ module RSpec
 
         describe "in shared_context" do
           shared_context "shared stuff" do
-            subject {Array}
-            its(:name) {should eq "Array"}
+            subject { Array }
+            its(:name) { should eq "Array" }
           end
 
           include_context "shared stuff"
@@ -215,8 +219,19 @@ module RSpec
           end
         end
       end
+      context "with metadata" do
+        context "preserves access to metadata that doesn't end in hash" do
+          its([], :foo) do |example|
+            expect(example.metadata[:foo]).to be(true)
+          end
+        end
+        context "preserves access to metadata that ends in hash" do
+          its([], :foo, :bar => 17) do |example|
+            expect(example.metadata[:foo]).to be(true)
+            expect(example.metadata[:bar]).to be(17)
+          end
+        end
+      end
     end
   end
-
-
 end

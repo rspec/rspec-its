@@ -130,7 +130,9 @@ module RSpec
           RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
         end
 
-        options << { :caller => its_caller }
+        options << {} unless options.last.kind_of?(Hash)
+        options.last.merge!(:caller => its_caller)
+
         example(nil, *options, &block)
 
       end

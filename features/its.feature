@@ -116,6 +116,9 @@ Feature: attribute of subject
         context "when first created" do
           its(:size) { should eq(0) }
         end
+        it "should never execute this" do
+          expect(true).to be(false)
+        end
       end
       """
     When I run rspec specifying line number 2
