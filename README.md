@@ -42,7 +42,7 @@ The following expect-style method is also available:
     
 as is this alias for pluralized use:
 
-    its(:keys) { are_expected.to eq([:key1, :key2])
+    its(:keys) { are_expected.to eq([:key1, :key2]) }
     
 When the subject implements the `[]` operator, you can pass in an array with a single key to
 refer to the value returned by that operator when passed that key as an argument.
@@ -52,7 +52,7 @@ refer to the value returned by that operator when passed that key as an argument
 For hashes, multiple keys within the array will result in successive accesses into the hash. For example:
 
     subject { {key1: {key2: 3} } }
-    its([:key1, :key2]) { is_expected.to eq(3)
+    its([:key1, :key2]) { is_expected.to eq(3) }
 
 For other objects, multiple keys within the array will be passed as separate arguments in a single method call to [], as in:
 
