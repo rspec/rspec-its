@@ -218,6 +218,29 @@ module RSpec
             expect(status).to eq(:passed)
           end
         end
+
+        context "when using the 'raise_error' matcher" do
+          subject do
+            Class.new do
+              def raise_exception
+                raise 'foo'
+              end
+
+              def raise_no_exception
+              end
+            end.new
+          end
+
+          context "when using the 'expect' syntax" do
+            its(:raise_exception) { is_expected.to raise_error(RuntimeError) }
+            its(:raise_no_exception) { is_expected.not_to raise_error }
+          end
+
+          context "when using the 'should' syntax" do
+            its(:raise_exception) { should raise_error(RuntimeError) }
+            its(:raise_no_exception) { should_not raise_error }
+          end
+        end
       end
       context "with metadata" do
         context "preserves access to metadata that doesn't end in hash" do
