@@ -1,5 +1,6 @@
 language: ruby
 script: "script/test_all"
+sudo: false
 before_install:
   - gem update --system # update rubygems
   - gem update bundler
