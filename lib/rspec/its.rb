@@ -118,16 +118,26 @@ module RSpec
         end
 
         def is_expected
-          expect(__its_subject)
+          Expect.new(lambda { __its_subject }, self)
         end
         alias_method :are_expected, :is_expected
 
         def should(matcher=nil, message=nil)
-          RSpec::Expectations::PositiveExpectationHandler.handle_matcher(__its_subject, matcher, message)
+          cls = RSpec::Expectations::PositiveExpectationHandler
+          if matcher.is_a?(RSpec::Matchers::BuiltIn::RaiseError)
+            cls.handle_matcher(lambda { __its_subject }, matcher, message)
+          else
+            cls.handle_matcher(__its_subject, matcher, message)
+          end
         end
 
         def should_not(matcher=nil, message=nil)
-          RSpec::Expectations::NegativeExpectationHandler.handle_matcher(__its_subject, matcher, message)
+          cls = RSpec::Expectations::NegativeExpectationHandler
+          if matcher.is_a?(RSpec::Matchers::BuiltIn::RaiseError)
+            cls.handle_matcher(lambda { __its_subject }, matcher, message)
+          else
+            cls.handle_matcher(__its_subject, matcher, message)
+          end
         end
 
         options << {} unless options.last.kind_of?(Hash)
@@ -138,6 +148,33 @@ module RSpec
       end
     end
 
+    class Expect
+      def initialize(its_subject, context)
+        @its_subject = its_subject
+        @context = context
+      end
+
+      def to(matcher)
+        call_expectation_handler(:to, matcher)
+      end
+
+      def not_to(matcher)
+        call_expectation_handler(:not_to, matcher)
+      end
+
+      private
+
+      def call_expectation_handler(expectation_handler, matcher)
+        if matcher.is_a?(RSpec::Matchers::BuiltIn::RaiseError)
+          context.expect(&its_subject).send(expectation_handler, matcher)
+        else
+          context.expect(its_subject.call).send(expectation_handler, matcher)
+        end
+      end
+
+      attr_reader :its_subject
+      attr_reader :context
+    end
   end
 end
 
