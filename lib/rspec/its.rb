@@ -110,7 +110,8 @@ module RSpec
               subject[*attribute]
             end
           else
-            attribute_chain = attribute.to_s.split('.')
+            split_attribute_by = !options.empty? && options[0][:split_attribute_by] ? options[0][:split_attribute_by] : '.'
+            attribute_chain = attribute.to_s.split(split_attribute_by)
             attribute_chain.inject(subject) do |inner_subject, attr|
               inner_subject.send(attr)
             end
