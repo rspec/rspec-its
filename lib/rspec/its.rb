@@ -55,13 +55,14 @@ module RSpec
     #     its(['admin']) { should eq(:all_permissions) }
     #     its(['john_doe', :permissions]) { should eq([:read, :write]) }
     #
-    #     # You can still access to its regular methods this way:
+    #     # You can still access its regular methods this way:
     #     its(:keys) { should include(:max_users) }
     #     its(:count) { should eq(2) }
     #   end
     #
     # With an implicit subject, `is_expected` can be used as an alternative
-    # to `should` (e.g. for one-liner use)
+    # to `should` (e.g. for one-liner use). An `are_expected` alias is also
+    # supplied.
     #
     # @example
     #
@@ -69,8 +70,8 @@ module RSpec
     #     its(:size) { is_expected.to eq(0) }
     #   end
     #
-    # You can pass more than one arguments on the `its` block to add
-    # some options to the generated example
+    # You can pass more than one argument on the `its` block to add
+    # some metadata to the generated example
     #
     # @example
     #
