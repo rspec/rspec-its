@@ -1,6 +1,6 @@
 language: ruby
-script: "script/test_all"
 sudo: false
+script: "script/test_all"
 before_install:
   - gem install bundler
 bundler_args: "--standalone --binstubs --without documentation"
