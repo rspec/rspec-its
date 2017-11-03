@@ -55,7 +55,7 @@ module RSpec
           end
           its("name") { should eq("John") }
           its("name.size") { should eq(4) }
-          its("name.size.class") { should eq(Fixnum) }
+          its("name.size.integer?") { should eq(true) }
 
           context "using should_not" do
             its("name") { should_not eq("Paul") }
@@ -86,7 +86,7 @@ module RSpec
           end
           its([:a]) { should eq("Symbol: a") }
           its(['a']) { should eq("String: a") }
-          its([:b, 'c', []]) { should eq("Symbol: b; String: c; Array: []") }
+          its([:b, 'c', Integer]) { should eq("Symbol: b; String: c; Class: Integer") }
           its(:name) { should eq("George") }
           context "when referring to an attribute that doesn't exist" do
             context "it raises an error" do
