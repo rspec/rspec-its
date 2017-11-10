@@ -17,7 +17,7 @@ rvm:
   - ruby-head
   - ree
   - jruby-18mode
-  - jruby-9.1.13.0
+  - jruby-9.1.14.0
   - jruby-head
   - rbx
 matrix:
