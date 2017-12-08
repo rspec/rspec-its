@@ -1,6 +1,6 @@
 language: ruby
 sudo: false
-script: "script/test_all"
+email: false
 before_install:
   - gem install bundler
 bundler_args: "--standalone --binstubs --without documentation"
@@ -9,19 +9,21 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
-  - 2.1.0
-  - 2.1.1
-  - 2.1.2
-  - 2.2.0
-  - 2.3.0
+  - 2.1
+  - 2.2.7
+  - 2.3.5
+  - 2.4.2
   - ruby-head
   - ree
-  - jruby-18mode
-  - jruby-9.1.14.0
+  - jruby-9.1.15.0
   - jruby-head
-  - rbx
+  - jruby-1.7
+  - rbx-3
+env:
+  - JRUBY_OPTS='--dev'
 matrix:
   allow_failures:
     - rvm: jruby-head
     - rvm: ruby-head
-    - rvm: rbx
+    - rvm: rbx-3
+  fast_finish: true
