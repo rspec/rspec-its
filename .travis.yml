@@ -1,4 +1,5 @@
 language: ruby
+script: "script/test_all"
 sudo: false
 email: false
 before_install:
