@@ -74,7 +74,7 @@ For other objects, multiple keys within the array will be passed as separate arg
 
 ```ruby
 subject { Matrix[ [:a, :b], [:c, :d] ] }
-its([1,1]) { should eq(:d```
+its([1,1]) { should eq(:d) }
 ```
 
 Metadata arguments are supported.
