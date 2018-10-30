@@ -13,6 +13,14 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/rspec/rspec-its"
   spec.license       = "MIT"
 
+  spec.metadata = {
+    'bug_tracker_uri'   => 'https://github.com/rspec/rspec-its/issues',
+    'changelog_uri'     => "https://github.com/rspec/rspec-its/blob/v#{spec.version}/Changelog.md",
+    'documentation_uri' => "https://www.rubydoc.info/gems/rspec-its/#{spec.version}",
+    'mailing_list_uri'  => 'https://groups.google.com/forum/#!forum/rspec',
+    'source_code_uri'   => 'https://github.com/rspec/rspec-its',
+  }
+
   spec.files         = `git ls-files`.split($/) - %w[cucumber.yml]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
