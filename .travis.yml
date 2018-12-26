@@ -3,7 +3,8 @@ script: "script/test_all"
 sudo: false
 email: false
 before_install:
-  - gem update --system # update rubygems
+  # We need to ensure the latest version of Rubygems, unless we're on an old Ruby.
+  - gem update --system $(ruby -e "puts '2.7.8' if ENV['RUBY_VERSION'] >= '2.3.0'")
   - gem update bundler
 bundler_args: "--standalone --binstubs --without documentation"
 rvm:
