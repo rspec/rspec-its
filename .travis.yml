@@ -12,16 +12,16 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1
-  - 2.2
-  - 2.3
-  - 2.4
-  - 2.5
-  - 2.6
+  - 2.2.10
+  - 2.3.8
+  - 2.4.5
+  - 2.5.3
+  - 2.6.0
   - ruby-head
   - ree
-  - jruby
+  - jruby-9.2.5.0
   - jruby-head
-  - jruby-1.7
+  - jruby-1.7.27
   - rbx-3
 env:
   - JRUBY_OPTS='--dev'
