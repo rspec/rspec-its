@@ -4,8 +4,6 @@ email: false
 before_install:
   - script/update_rubygems_and_install_bundler
 bundler_args: "--standalone --binstubs --without documentation"
-
-# Known version aliases: https://github.com/rvm/rvm/blob/master/config/known
 rvm:
   - 1.8.7
   - 1.9.2
