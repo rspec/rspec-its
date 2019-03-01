@@ -4,7 +4,7 @@
 Breaking Changes:
 
 Enhancements:
-* Introduced `is_expected_in_block` and its alias `are_expected_in_block` as a one-liners for block expectations
+* Introduced `will` and `will_not` as one-liners for block expectations
 
 Bug fixes:
 

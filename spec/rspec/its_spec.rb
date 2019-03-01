@@ -69,16 +69,12 @@ module RSpec
             its("name") { is_expected.to eq("John") }
           end
 
-          context "using is_expected_in_block" do
-            its("name") { is_expected_in_block.to_not raise_error }
+          context "using will_not" do
+            its("name") { will_not raise_error }
           end
 
           context "using are_expected" do
             its("name.chars.to_a") { are_expected.to eq(%w[J o h n]) }
-          end
-
-          context "using are_expected_in_block" do
-            its("name.chars.to_a") { are_expected_in_block.to_not raise_error }
           end
         end
 
@@ -112,12 +108,8 @@ module RSpec
                 end.to raise_error(NoMethodError)
               end
 
-              context "using is_expected_in_block" do
-                its(:age) { is_expected_in_block.to raise_error(NoMethodError) }
-              end
-
-              context "using are_expected_in_block" do
-                its(:ages) { are_expected_in_block.to raise_error(NoMethodError) }
+              context "using will" do
+                its(:age) { will raise_error(NoMethodError) }
               end
             end
           end
@@ -134,8 +126,8 @@ module RSpec
               its([:a, :ghost]) { should be_nil }
               its([:deep, :ghost]) { expect { should eq("missing") }.to raise_error(NoMethodError) }
 
-              context "using is_expected_in_block" do
-                its([:deep, :ghost]) { is_expected_in_block.to raise_error(NoMethodError) }
+              context "using will" do
+                its([:deep, :ghost]) { will raise_error(NoMethodError) }
               end
             end
           end
@@ -151,8 +143,8 @@ module RSpec
               end.to raise_error(NoMethodError)
             end
 
-            context "using is_expected_in_block" do
-              its([:a]) { is_expected_in_block.to raise_error(NoMethodError) }
+            context "using will" do
+              its([:a]) { will raise_error(NoMethodError) }
             end
           end
         end
@@ -263,6 +255,85 @@ module RSpec
             expect(example.metadata[:bar]).to be(17)
           end
         end
+      end
+
+      context "when expecting errors" do
+        subject do
+          Class.new do
+            def good; end
+
+            def bad
+              raise ArgumentError, "message"
+            end
+          end.new
+        end
+
+        its(:good) { will_not raise_error }
+        its(:bad) { will raise_error }
+        its(:bad) { will raise_error(ArgumentError) }
+        its(:bad) { will raise_error("message") }
+        its(:bad) { will raise_error(ArgumentError, "message") }
+      end
+
+      context "when expecting throws" do
+        subject do
+          Class.new do
+            def good; end
+
+            def bad
+              throw :abort, "message"
+            end
+          end.new
+        end
+
+        its(:good) { will_not throw_symbol }
+        its(:bad) { will throw_symbol }
+        its(:bad) { will throw_symbol(:abort) }
+        its(:bad) { will throw_symbol(:abort, "message") }
+      end
+
+      context "with change observation" do
+        subject do
+          Class.new do
+            attr_reader :count
+
+            def initialize
+              @count = 0
+            end
+
+            def increment
+              @count += 1
+            end
+          end.new
+        end
+
+        its(:increment) { will change { subject.count }.by(1) }
+        its(:increment) { will change { subject.count }.from(0) }
+        its(:increment) { will change { subject.count }.from(0).to(1) }
+        its(:increment) { will change { subject.count }.by_at_least(1) }
+        its(:increment) { will change { subject.count }.by_at_most(1) }
+      end
+
+      context "with output capture" do
+        subject do
+          Class.new do
+            def stdout
+              print "some output"
+            end
+
+            def stderr
+              $stderr.print "some error"
+            end
+
+            def noop; end
+          end.new
+        end
+
+        its(:stdout) { will output("some output").to_stdout }
+        its(:stderr) { will output("some error").to_stderr }
+
+        its(:noop) { will_not output("some error").to_stderr }
+        its(:noop) { will_not output("some output").to_stdout }
       end
     end
   end
