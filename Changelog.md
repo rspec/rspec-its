@@ -1,3 +1,13 @@
+### 1.3.0 / 2019-03-01
+[full changelog](http://github.com/rspec/rspec-its/compare/v1.2.0...v1.3.0)
+
+Breaking Changes:
+
+Enhancements:
+* Introduced `is_expected_in_block` and its alias `are_expected_in_block` as a one-liners for block expectations
+
+Bug fixes:
+
 ### 1.2.0 / 2015-02-06
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.1.0...v1.2.0)
 

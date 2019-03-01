@@ -69,8 +69,16 @@ module RSpec
             its("name") { is_expected.to eq("John") }
           end
 
+          context "using is_expected_in_block" do
+            its("name") { is_expected_in_block.to_not raise_error }
+          end
+
           context "using are_expected" do
             its("name.chars.to_a") { are_expected.to eq(%w[J o h n]) }
+          end
+
+          context "using are_expected_in_block" do
+            its("name.chars.to_a") { are_expected_in_block.to_not raise_error }
           end
         end
 
@@ -103,6 +111,14 @@ module RSpec
                   should eq(64)
                 end.to raise_error(NoMethodError)
               end
+
+              context "using is_expected_in_block" do
+                its(:age) { is_expected_in_block.to raise_error(NoMethodError) }
+              end
+
+              context "using are_expected_in_block" do
+                its(:ages) { are_expected_in_block.to raise_error(NoMethodError) }
+              end
             end
           end
 
@@ -117,6 +133,10 @@ module RSpec
               its([:not_here]) { should be_nil }
               its([:a, :ghost]) { should be_nil }
               its([:deep, :ghost]) { expect { should eq("missing") }.to raise_error(NoMethodError) }
+
+              context "using is_expected_in_block" do
+                its([:deep, :ghost]) { is_expected_in_block.to raise_error(NoMethodError) }
+              end
             end
           end
         end
@@ -129,6 +149,10 @@ module RSpec
               expect do
                 should eq("Symbol: a")
               end.to raise_error(NoMethodError)
+            end
+
+            context "using is_expected_in_block" do
+              its([:a]) { is_expected_in_block.to raise_error(NoMethodError) }
             end
           end
         end

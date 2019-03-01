@@ -70,6 +70,16 @@ module RSpec
     #     its(:size) { is_expected.to eq(0) }
     #   end
     #
+    # With an implicit subject, `is_expected_in_block` can be used as an
+    # alternative to `expect { should matcher }` (e.g. for one-liner use).
+    # An `are_expected_in_block` alias is also supplied.
+    #
+    # @example
+    #
+    #   describe Array do
+    #     its(:size) { is_expected_in_block.to_not raise_error }
+    #   end
+    #
     # You can pass more than one argument on the `its` block to add
     # some metadata to the generated example
     #
@@ -122,6 +132,11 @@ module RSpec
           expect(__its_subject)
         end
         alias_method :are_expected, :is_expected
+
+        def is_expected_in_block
+          expect { __its_subject }
+        end
+        alias_method :are_expected_in_block, :is_expected_in_block
 
         def should(matcher=nil, message=nil)
           RSpec::Expectations::PositiveExpectationHandler.handle_matcher(__its_subject, matcher, message)

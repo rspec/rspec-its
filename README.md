@@ -29,6 +29,8 @@ require 'rspec/its'
 Use the `its` method to generate a nested example group with
 a single example that specifies the expected value of an attribute of the
 subject using `should`, `should_not` or `is_expected`.
+The `its` method can also specify the block expectations of an attribute of the
+subject using `is_expected_in_block`.
 
 `its` accepts a symbol or a string, and a block representing the example.
 
@@ -54,6 +56,18 @@ as is this alias for pluralized use:
 
 ```ruby
 its(:keys) { are_expected.to eq([:key1, :key2]) }
+```
+
+The following block expect-style method is also available:
+
+```ruby
+its(:size) { is_expected_in_block.to_not raise_error }
+```
+
+as is this alias for pluralized use:
+
+```ruby
+its(:keys) { are_expected_in_block.to raise_error(NoMethodError) }
 ```
 
 When the subject implements the `[]` operator, you can pass in an array with a single key to
