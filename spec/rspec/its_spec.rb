@@ -304,6 +304,8 @@ module RSpec
             def increment
               @count += 1
             end
+
+            def noop; end
           end.new
         end
 
@@ -312,6 +314,24 @@ module RSpec
         its(:increment) { will change { subject.count }.from(0).to(1) }
         its(:increment) { will change { subject.count }.by_at_least(1) }
         its(:increment) { will change { subject.count }.by_at_most(1) }
+
+        its(:noop) { will_not change { subject.count } }
+        its(:noop) { will_not change { subject.count }.from(0) }
+
+        its(:increment) do
+          expect { will_not change { subject.count }.by(0) }.to \
+            raise_error(NotImplementedError, '`expect { }.not_to change { }.by()` is not supported')
+        end
+
+        its(:increment) do
+          expect { will_not change { subject.count }.by_at_least(2) }.to \
+            raise_error(NotImplementedError, '`expect { }.not_to change { }.by_at_least()` is not supported')
+        end
+
+        its(:increment) do
+          expect { will_not change { subject.count }.by_at_most(3) }.to \
+            raise_error(NotImplementedError, '`expect { }.not_to change { }.by_at_most()` is not supported')
+        end
       end
 
       context "with output capture" do
@@ -334,6 +354,26 @@ module RSpec
 
         its(:noop) { will_not output("some error").to_stderr }
         its(:noop) { will_not output("some output").to_stdout }
+      end
+
+      context "#will with non block expectations" do
+        subject do
+          Class.new do
+            def terminator
+              "back"
+            end
+          end.new
+        end
+
+        its(:terminator) do
+          expect { will be("back") }.to \
+            raise_error(ArgumentError, '`will` only supports block expectations')
+        end
+
+        its(:terminator) do
+          expect { will_not be("back") }.to \
+            raise_error(ArgumentError, '`will_not` only supports block expectations')
+        end
       end
     end
   end
