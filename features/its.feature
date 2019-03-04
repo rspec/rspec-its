@@ -123,3 +123,51 @@ Feature: attribute of subject
       """
     When I run rspec specifying line number 2
     Then the examples should all pass
+
+  Scenario: specify a method throws an expection
+    Given a file named "example_spec.rb" with:
+      """ruby
+      describe Symbol do
+        subject { :foo }
+        its(:upcase) { will_not raise_error }
+        its(:chomp) { will raise_error(NoMethodError) }
+      end
+      """
+    When I run rspec
+    Then the examples should all pass
+
+  Scenario: specify a method does not throw an expection
+    Given a file named "example_spec.rb" with:
+      """ruby
+      describe Symbol do
+        subject { :foo }
+        its(:chomp) { will_not raise_error }
+      end
+      """
+    When I run rspec
+    Then it should fail with:
+      """
+      Failures:
+
+        1) Symbol chomp should not raise Exception
+           Failure/Error: its(:chomp) { will_not raise_error }
+             expected no Exception, got #<NoMethodError: undefined method `chomp' for :foo:Symbol> with backtrace:
+      """
+
+  Scenario: examples will warn when using non block expectations
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Klass
+        def terminator
+         "back"
+        end
+      end
+
+      describe Klass do
+        subject { Klass.new }
+        its(:terminator) { will be("back") }
+      end
+      """
+    When I run rspec
+    Then the example should fail
+    And the output should contain "ArgumentError:" and "`will` only supports block expectations"
