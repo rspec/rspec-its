@@ -142,14 +142,16 @@ module RSpec
         alias_method :are_expected, :is_expected
 
         def will(matcher=nil, message=nil)
-          raise ArgumentError, "`will` only supports block expectations" \
-            unless matcher.supports_block_expectations?
+          unless matcher.supports_block_expectations?
+            raise ArgumentError, "`will` only supports block expectations"
+          end
           expect { __its_subject }.to matcher, message
         end
 
         def will_not(matcher=nil, message=nil)
-          raise ArgumentError, "`will_not` only supports block expectations" \
-            unless matcher.supports_block_expectations?
+          unless matcher.supports_block_expectations?
+            raise ArgumentError, "`will_not` only supports block expectations"
+          end
           expect { __its_subject }.to_not matcher, message
         end
 

@@ -1,5 +1,4 @@
-### 1.3.0 / 2019-03-01
-[full changelog](http://github.com/rspec/rspec-its/compare/v1.2.0...v1.3.0)
+### Development
 
 Breaking Changes:
 
