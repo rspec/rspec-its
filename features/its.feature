@@ -123,3 +123,54 @@ Feature: attribute of subject
       """
     When I run rspec specifying line number 2
     Then the examples should all pass
+
+  Scenario: specify a method throws an expection
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Klass
+        def foo
+          true
+        end
+      end
+
+      describe Klass do
+        subject { Klass.new }
+        its(:foo) { will_not raise_error }
+        its(:bar) { will raise_error(NoMethodError) }
+      end
+      """
+    When I run rspec
+    Then the examples should all pass
+
+  Scenario: specify a method does not throw an expection
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Klass; end
+
+      describe Klass do
+        subject { Klass.new }
+        its(:foo) { will_not raise_error }
+      end
+      """
+    When I run rspec
+    Then the example should fail
+    And the output should contain "Failure/Error: its(:foo) { will_not raise_error }"
+    And the output should contain "expected no Exception, got #<NoMethodError: undefined method `foo'"
+
+  Scenario: examples will warn when using non block expectations
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Klass
+        def terminator
+         "back"
+        end
+      end
+
+      describe Klass do
+        subject { Klass.new }
+        its(:terminator) { will be("back") }
+      end
+      """
+    When I run rspec
+    Then the example should fail
+    And the output should contain "ArgumentError:" and "`will` only supports block expectations"

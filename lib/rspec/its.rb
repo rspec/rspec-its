@@ -70,6 +70,24 @@ module RSpec
     #     its(:size) { is_expected.to eq(0) }
     #   end
     #
+    # With an implicit subject, `will` can be used as an alternative
+    # to `expect { subject.attribute }.to matcher` (e.g. for one-liner use).
+    #
+    # @example
+    #
+    #   describe Array do
+    #     its(:foo) { will raise_error(NoMethodError) }
+    #   end
+    #
+    # With an implicit subject, `will_not` can be used as an alternative
+    # to `expect { subject.attribute }.to_not matcher` (e.g. for one-liner use).
+    #
+    # @example
+    #
+    #   describe Array do
+    #     its(:size) { will_not raise_error }
+    #   end
+    #
     # You can pass more than one argument on the `its` block to add
     # some metadata to the generated example
     #
@@ -122,6 +140,20 @@ module RSpec
           expect(__its_subject)
         end
         alias_method :are_expected, :is_expected
+
+        def will(matcher=nil, message=nil)
+          unless matcher.supports_block_expectations?
+            raise ArgumentError, "`will` only supports block expectations"
+          end
+          expect { __its_subject }.to matcher, message
+        end
+
+        def will_not(matcher=nil, message=nil)
+          unless matcher.supports_block_expectations?
+            raise ArgumentError, "`will_not` only supports block expectations"
+          end
+          expect { __its_subject }.to_not matcher, message
+        end
 
         def should(matcher=nil, message=nil)
           RSpec::Expectations::PositiveExpectationHandler.handle_matcher(__its_subject, matcher, message)

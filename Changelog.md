@@ -1,3 +1,12 @@
+### Development
+
+Breaking Changes:
+
+Enhancements:
+* Introduced `will` and `will_not` as one-liners for block expectations
+
+Bug fixes:
+
 ### 1.2.0 / 2015-02-06
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.1.0...v1.2.0)
 

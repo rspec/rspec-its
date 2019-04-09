@@ -19,3 +19,14 @@ Then /^the example(?:s)? should(?: all)? pass$/ do
   step %q{the output should not contain "0 examples"}
   step %q{the exit status should be 0}
 end
+
+Then(/^the example should fail$/) do
+  step %q{the output should contain "1 failure"}
+  step %q{the exit status should not be 0}
+end
+
+Then(/^the output should contain "(.*?)" and "(.*?)"$/) do |string1, string2|
+  unless [string1, string2].all? { |s| all_output.include?(s) }
+    fail %Q{Both "#{string1}" and "#{string2}" were found in:\n#{all_output}}
+  end
+end
