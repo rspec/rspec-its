@@ -45,6 +45,15 @@ module RSpec
           its(:nil_value) { should be_nil }
         end
 
+        context 'with constant name' do
+          subject do
+            Class.new do
+              const_set(:CONST_NAME, 1)
+            end
+          end
+          its(:CONST_NAME) { should eq(1) }
+        end
+
         context "with nested attributes" do
           subject do
             Class.new do

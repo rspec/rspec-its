@@ -84,6 +84,38 @@ Feature: attribute of subject
     When I run rspec
     Then the examples should all pass
 
+ Scenario: specify value of a described_class's constant
+   Given a file named "example_spec.rb" with:
+     """ruby
+     class Klass
+       FOO = :bar
+     end
+
+     describe Klass do
+       describe 'constants' do
+         its(:FOO) { should eq(:bar) }
+       end
+     end
+     """
+   When I run rspec
+   Then the examples should all pass
+
+  Scenario: specify value of a subject's constant
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Klass
+        Foo = :bar
+      end
+
+      describe 'constants' do
+        subject { Klass }
+
+        its(:Foo) { should eq(:bar) }
+      end
+      """
+    When I run rspec
+    Then the examples should all pass
+
  Scenario: failures are correctly reported as coming from the `its` line
     Given a file named "example_spec.rb" with:
       """ruby

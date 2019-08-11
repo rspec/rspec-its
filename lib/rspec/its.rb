@@ -39,6 +39,26 @@ module RSpec
     #     its("phone_numbers.first") { should eq("555-1212") }
     #   end
     #
+    # When the attribute starts with an upper case letter, `its` will look
+    # for a constant within either `subject` (if it responds to `const_get`)
+    # or `described_class`.
+    #
+    # @example
+    #
+    #   class Klass
+    #     FOO = :bar
+    #   end
+    #
+    #   describe Klass do
+    #     its(:FOO) { should eq(:bar) }
+    #   end
+    #
+    #   describe 'class constants' do
+    #     subject { Klass }
+    #
+    #     its(:FOO) { should eq(:bar) }
+    #   end
+    #
     # When the subject is a `Hash`, you can refer to the Hash keys by
     # specifying a `Symbol` or `String` in an array.
     #
@@ -128,6 +148,8 @@ module RSpec
             else
               subject[*attribute]
             end
+          elsif %r([[:upper:]]).match(attribute.to_s[0])
+            (subject.respond_to?(:const_get) ? subject : described_class).const_get(attribute)
           else
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
