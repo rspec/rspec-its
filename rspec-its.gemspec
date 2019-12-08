@@ -31,6 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler',  '> 1.3.0'
   spec.add_development_dependency 'rake',     '~> 10.1.0'
   spec.add_development_dependency 'cucumber', '~> 1.3.8'
-  spec.add_development_dependency "aruba",    "~> 0.6.2" # 0.7 is broken on ruby 1.8.7
+  spec.add_development_dependency "aruba",    "~> 0.14.12"
 
 end
