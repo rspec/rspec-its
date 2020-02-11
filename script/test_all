@@ -14,10 +14,16 @@ bin/rspec spec --format progress --profile
 
 echo "Running cucumber specs"
 
+if ruby -e 'exit(ENV.fetch("BRANCH","3-0-maintenance") =~ /3-[0-8]-maintenance/ ? 0 : 1)'; then
+  TAGS="--tags @pre-3-9"
+else
+  TAGS="--tags @post-3-9"
+fi;
+
 if ruby -e "exit(defined?(RUBY_PLATFORM) && RUBY_PLATFORM == 'java')"; then
   # This is JRUBY which requires this one weird path trick...
   PATH="${PWD}/bin:$PATH" \
-  bundle exec cucumber --strict
+  bundle exec cucumber --strict $TAGS
 else
-  bundle exec cucumber --strict
+  bundle exec cucumber --strict $TAGS
 fi;

@@ -1,5 +1,6 @@
 Feature: attribute of subject
 
+  @pre-3-9
   Scenario: specify value of a nested attribute
     Given a file named "example_spec.rb" with:
       """ruby
@@ -29,6 +30,38 @@ Feature: attribute of subject
         with one phone number (555-1212)
           phone_numbers.first
             should eq "555-1212"
+      """
+
+  @post-3-9
+  Scenario: specify value of a nested attribute
+    Given a file named "example_spec.rb" with:
+      """ruby
+      class Person
+        attr_reader :phone_numbers
+        def initialize
+          @phone_numbers = []
+        end
+      end
+
+      describe Person do
+        context "with one phone number (555-1212)"do
+          subject do
+            person = Person.new
+            person.phone_numbers << "555-1212"
+            person
+          end
+
+          its("phone_numbers.first") { should eq("555-1212") }
+        end
+      end
+      """
+    When I run rspec with the documentation option
+    Then the output should contain:
+      """
+      Person
+        with one phone number (555-1212)
+          phone_numbers.first
+            is expected to eq "555-1212"
       """
 
   Scenario: specify value of an attribute of a hash
