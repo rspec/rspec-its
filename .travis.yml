@@ -1,3 +1,5 @@
+# In order to install old Rubies, we need to use old Ubuntu distibution.
+dist: trusty
 language: ruby
 script: "script/test_all"
 email: false
@@ -12,9 +14,10 @@ rvm:
   - 2.1
   - 2.2.10
   - 2.3.8
-  - 2.4.5
-  - 2.5.3
-  - 2.6.0
+  - 2.4.9
+  - 2.5.7
+  - 2.6.5
+  - 2.7.0
   - ruby-head
   - ree
   - jruby-9.2.5.0
