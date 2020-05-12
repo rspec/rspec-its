@@ -28,9 +28,18 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'rspec-core', '>= 3.0.0'
   spec.add_runtime_dependency 'rspec-expectations', '>= 3.0.0'
+
+  if RUBY_VERSION.to_f < 1.9 || RUBY_VERSION == '1.9.2'
+    spec.add_development_dependency "rake",     "~> 10.0.0"
+  elsif RUBY_VERSION.to_f < 2
+    spec.add_development_dependency "rake",     "~> 11.0.0"
+  elsif RUBY_VERSION.to_f < 2.3
+    spec.add_development_dependency "rake",     "~> 12.3.2"
+  else
+    spec.add_development_dependency "rake",     "~> 13.0.0"
+  end
+
   spec.add_development_dependency 'bundler',  '> 1.3.0'
-  spec.add_development_dependency 'rake',     '~> 10.1.0'
   spec.add_development_dependency 'cucumber', '~> 1.3.8'
   spec.add_development_dependency "aruba",    "~> 0.14.12"
-
 end
