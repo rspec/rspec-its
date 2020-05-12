@@ -14,10 +14,10 @@ rvm:
   - 2.1
   - 2.2.10
   - 2.3.8
-  - 2.4.9
-  - 2.5.7
-  - 2.6.5
-  - 2.7.0
+  - 2.4.10
+  - 2.5.8
+  - 2.6.6
+  - 2.7.1
   - ruby-head
   - ree
   - jruby-9.2.7.0
@@ -28,34 +28,34 @@ env:
   - JRUBY_OPTS='--dev'
 matrix:
   include:
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-9-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-8-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-7-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-6-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-5-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-4-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-3-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-2-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-1-maintenance"
-    - rvm: 2.7.0
+    - rvm: 2.7.1
       env:
         - BRANCH="3-0-maintenance"
 
