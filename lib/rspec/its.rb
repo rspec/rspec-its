@@ -171,12 +171,40 @@ module RSpec
       end
     end
 
+    # Calls the #its method adding the :focus tag to metadata to allowing
+    # to be run in focus.
+    #
+    # @example
+    #
+    #   # This ...
+    #   describe Array do
+    #     fits(:size) { should eq(0) }
+    #   end
+    def fits(attribute, *options, &block)
+      opts = (Array(options) << :focus).uniq
+      its(attribute, *opts, &block)
+    end
+
+    # Calls the #its method adding the :skip tag to metadata to allowing
+    # to be be skipped.
+    #
+    # @example
+    #
+    #   # This ...
+    #   describe Array do
+    #     xits(:size) { should eq(0) }
+    #   end
+    def xits(attribute, *options, &block)
+      opts = (Array(options) << :skip).uniq
+      its(attribute, *opts, &block)
+    end
+
   end
 end
 
 RSpec.configure do |rspec|
   rspec.extend RSpec::Its
-  rspec.backtrace_exclusion_patterns << %r(/lib/rspec/its)
+  rspec.backtrace_exclusion_patterns << %r{/lib/rspec/its/fits/xits}
 end
 
 RSpec::SharedContext.send(:include, RSpec::Its)

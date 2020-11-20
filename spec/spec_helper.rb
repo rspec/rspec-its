@@ -1,6 +1,6 @@
 require 'rspec/its'
 
-Dir['./spec/support/**/*'].each {|f| require f}
+Dir['./support/**/*.rb'].each {|f| require f}
 
 class NullFormatter
   private

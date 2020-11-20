@@ -97,6 +97,13 @@ Metadata arguments are supported.
 its(:size, focus: true) { should eq(1) }
 ```
 
+Alternatively, you can use the `f` and `x` prefix for `focus` and `skip` metadata, respectively.
+
+```ruby
+fits(:size) { should eq(1) }
+xits(:not_implemented_method) { will_not raise_error }
+```
+
 ## Contributing
 
 1. Fork it
