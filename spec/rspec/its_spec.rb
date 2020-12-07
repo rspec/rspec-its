@@ -380,56 +380,39 @@ module RSpec
     end
 
     describe "#fits" do
-      it 'calls #its with :focus metadata' do
-        stub = Class.new do
-          include RSpec::Its
-        end.new
-        allow(stub).to receive(:its)
+      describe "focus with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
 
-        expect(stub).to receive(:its).with('attribute', :focus).and_yield
-        stub.fits('attribute') {}
-      end
-
-      it "fits is focused within the example group" do
-        ex_its, ex_fits = nil
-
-        RSpec.describe do
-          extend RSpec::Its
-
-          ex_its = its(:name) { :its_example }
-          ex_fits = fits(:class) { :fits_example }
+            fits(:class) { true }
+          end
         end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
 
-        expect(ex_its.examples.first.metadata[:focus]).to be_falsey
-        expect(ex_fits.examples.first.metadata[:focus]).to be_truthy
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:focus]).to be_truthy
+        end
       end
     end
 
     describe "#xits" do
-      it 'calls #its with :skip metadata' do
-        stub = Class.new do
-          include RSpec::Its
-        end.new
-        allow(stub).to receive(:its)
+      describe "skip with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
 
-        expect(stub).to receive(:its).with('attribute', :skip).and_yield
-        stub.xits('attribute') {}
-      end
-
-      it "xits is skipped within the example group" do
-        ex_its, ex_xits = nil
-
-        RSpec.describe do
-          extend RSpec::Its
-
-          ex_its = its(:name) { :its_example }
-          ex_xits = xits(:class) { :xits_example }
+            xits(:class) { true }
+          end
         end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
 
-        expect(ex_its.examples.first.metadata[:skip]).to be_falsey
-        expect(ex_xits.examples.first.metadata[:skip]).to be_truthy
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:skip]).to be_truthy
+        end
       end
     end
-
   end
 end

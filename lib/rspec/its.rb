@@ -181,7 +181,7 @@ module RSpec
     #     fits(:size) { should eq(0) }
     #   end
     def fits(attribute, *options, &block)
-      opts = (Array(options) << :focus).uniq
+      opts = (options << :focus).uniq
       its(attribute, *opts, &block)
     end
 
@@ -195,7 +195,7 @@ module RSpec
     #     xits(:size) { should eq(0) }
     #   end
     def xits(attribute, *options, &block)
-      opts = (Array(options) << :skip).uniq
+      opts = (options << :skip).uniq
       its(attribute, *opts, &block)
     end
 
@@ -204,7 +204,7 @@ end
 
 RSpec.configure do |rspec|
   rspec.extend RSpec::Its
-  rspec.backtrace_exclusion_patterns << %r{/lib/rspec/its/fits/xits}
+  rspec.backtrace_exclusion_patterns << %r{/lib/rspec/its}
 end
 
 RSpec::SharedContext.send(:include, RSpec::Its)
