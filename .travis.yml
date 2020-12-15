@@ -1,0 +1,60 @@
+# In order to install old Rubies, we need to use old Ubuntu distibution.	
+dist: trusty	
+language: ruby	
+script: "script/test_all"	
+email: false	
+before_install:	
+  - script/update_rubygems_and_install_bundler	
+bundler_args: "--standalone --binstubs --without documentation"	
+rvm:	
+  - 1.8.7	
+  - 1.9.2	
+  - 1.9.3	
+  - 2.0.0	
+  - 2.7.1
+  - ruby-head	
+  - ree	
+  - jruby-9.2.7.0	
+  - jruby-head	
+  - jruby-1.7.27	
+  - rbx-3	
+env:	
+  - JRUBY_OPTS='--dev'	
+matrix:	
+  include:
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-9-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-8-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-7-maintenance"	
+    - rvm: 2.7.1	
+     env:	
+        - BRANCH="3-6-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-5-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-4-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-3-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-2-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-1-maintenance"	
+    - rvm: 2.7.1	
+      env:	
+        - BRANCH="3-0-maintenance"	
+
+  allow_failures:	
+    - rvm: jruby-head	
+    - rvm: ruby-head	
+    - rvm: rbx-3	
+  fast_finish: true 
