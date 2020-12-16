@@ -12,15 +12,8 @@ rvm:
   - 1.9.3	
   - 2.0.0	
   - 2.7.1
-  - ruby-head	
   - ree	
-  - jruby-9.2.7.0	
-  - jruby-head	
-  - jruby-1.7.27	
   - rbx-3	
-env:	
-  - JRUBY_OPTS='--dev'	
-matrix:	
   include:
     - rvm: 2.7.1	
       env:	
