@@ -3,29 +3,88 @@ name: Ruby CI
 on:
   push:
     branches:
-      - '**'
+      - 'main'
     tags-ignore:
       - '*.*'
   pull_request:
     branches:
-      - '**'
+      - '*'
 jobs:
   test:
-
-    runs-on: ubuntu-latest
-
+    name: Ruby ${{ matric.ruby }} ${{ matrix.name_extra || '' }}
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       matrix:
-        ruby-version: [2.7.2, 2.6.6, 2.5.8, 2.4.10, 2.3.8, 2.2.10, 2.1.9]
-
+        ruby:
+          - 3.0.0-preview2
+          - 2.7
+          - 2.6
+          - 2.5
+          - 2.4
+          - 2.3
+          - 2.2
+          - 2.1.9
+          - ruby-head
+        include:
+          - ruby: jruby-9.2.13.0
+            env:
+              JRUBY_OPTS: "--dev"
+          - ruby: jruby-9.1.17.0
+            bundler: 1
+            os: ubuntu-18.04
+            env:
+              JRUBY_OPTS: "--dev"
+          - ruby: 2.7
+            name_extra: 'with diff-lcs 1.3'
+            env:
+              DIFF_LCS_VERSION: "~> 1.3.0"
+          - ruby: 2.7
+            name_extra: "with diff-lcs 1.4.3"
+            env:
+              DIFF_LCS_VERSION: "1.4.3"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-9-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-8-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-7-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-6-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-5-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-4-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-3-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-2-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-1-maintenance"
+          - ruby: 2.7
+            env:
+              BRANCH: "3-0-maintenance"
+      fail_fast: false
+    continue-on-error: ${{ matrix.allow_failure || endsWith(matrix.ruby, 'head') }}
+    env: ${{ matrix.env }}
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby ${{ matrix.ruby-version }}
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true
-    - name: Install dependencies
-      run: bundle install --standalone --binstubs --without documentation
-    - name: Run tests
-      run: script/test_all
+      - uses: actions/checkout@v2
+      - name: Set up Ruby ${{ matrix.ruby }}
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler: ${{ matrix.bundler || 2 }}
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Install dependencies
+        run: bundle install --standalone --binstubs --without documentation
+      - name: Run tests
+        run: script/test_all 
+
