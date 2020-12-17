@@ -11,7 +11,7 @@ on:
       - '*'
 jobs:
   test:
-    name: Ruby ${{ matric.ruby }} ${{ matrix.name_extra || '' }}
+    name: Ruby ${{ matrix.ruby }} ${{ matrix.name_extra || '' }}
     runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       matrix:
@@ -26,7 +26,7 @@ jobs:
           - 2.1.9
           - ruby-head
         include:
-          - ruby: jruby-9.2.13.0
+          - ruby: 'jruby-9.2.13.0'
             env:
               JRUBY_OPTS: "--dev"
           - ruby: jruby-9.1.17.0
@@ -37,7 +37,7 @@ jobs:
           - ruby: 2.7
             name_extra: 'with diff-lcs 1.3'
             env:
-              DIFF_LCS_VERSION: "~> 1.3.0"
+              - DIFF_LCS_VERSION: "~> 1.3.0"
           - ruby: 2.7
             name_extra: "with diff-lcs 1.4.3"
             env:
@@ -72,7 +72,7 @@ jobs:
           - ruby: 2.7
             env:
               BRANCH: "3-0-maintenance"
-      fail_fast: false
+      fail-fast: false
     continue-on-error: ${{ matrix.allow_failure || endsWith(matrix.ruby, 'head') }}
     env: ${{ matrix.env }}
     steps:
