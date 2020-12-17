@@ -6,7 +6,7 @@ email: false
 before_install:	
   - script/update_rubygems_and_install_bundler	
 bundler_args: "--standalone --binstubs --without documentation"	
-rvm:	
+rvm:
   - 1.8.7	
   - 1.9.2	
   - 1.9.3	
@@ -14,5 +14,5 @@ rvm:
   - ree	
   - rbx-3	
   allow_failures:	
-    - rvm: rbx-3	
-  fast_finish: true 
+    - rvm: rbx-3
+  fast_finish: true
