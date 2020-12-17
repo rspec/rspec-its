@@ -77,7 +77,6 @@ jobs:
     env: ${{ matrix.env }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Ruby ${{ matrix.ruby }}
       - uses: ruby/setup-ruby@v1
         with:
           bundler: ${{ matrix.bundler || 2 }}
