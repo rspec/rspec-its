@@ -4,11 +4,12 @@ on:
   push:
     branches:
       - 'main'
-    tags-ignore:
-      - '*.*'
+      - '*-maintenance'
+      - '*-dev'
   pull_request:
     branches:
       - '*'
+
 jobs:
   test:
     name: Ruby ${{ matrix.ruby }} ${{ matrix.name_extra || '' }}
