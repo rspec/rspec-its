@@ -9,6 +9,7 @@ module RSpec
           its([]) { expect(described_class).to be Its }
         end
       end
+
       context "with explicit subject" do
         subject do
           Class.new do
@@ -243,6 +244,7 @@ module RSpec
           end
         end
       end
+
       context "with metadata" do
         context "preserves access to metadata that doesn't end in hash" do
           its([], :foo) do |example|
@@ -373,6 +375,42 @@ module RSpec
         its(:terminator) do
           expect { will_not be("back") }.to \
             raise_error(ArgumentError, '`will_not` only supports block expectations')
+        end
+      end
+    end
+
+    describe "#fits" do
+      describe "focus with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
+
+            fits(:class) { true }
+          end
+        end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
+
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:focus]).to be_truthy
+        end
+      end
+    end
+
+    describe "#xits" do
+      describe "skip with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
+
+            xits(:class) { true }
+          end
+        end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
+
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:skip]).to be_truthy
         end
       end
     end
