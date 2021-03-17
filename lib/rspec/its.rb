@@ -95,7 +95,7 @@ module RSpec
     #
     #   # This ...
     #   describe Array do
-    #     its(:size, :focus) { should eq(0) }
+    #     its(:size, focus: true) { should eq(0) }
     #   end
     #
     #   # ... generates the same runtime structure as this:
@@ -131,7 +131,31 @@ module RSpec
           else
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
+
+              # When NilClass:   user didnt set the rspec setting
+              # When FalseClass: skip this block
+              if RSpec.configuration.its_private_method_debug.is_a? NilClass
+
+                # respond_to? only looks in the public method space
+                # TODO Check NoMethodError
+                # TODO Check if inner_subject some kind of const
+                # inner_subject.method_defined?(attr) && !inner_subject.respond_to?(attr)
+                if !inner_subject.respond_to?(attr)
+
+                  if RSpec.configuration.its_private_method_debug
+                    # TODO if debug: show spec:line_num for better indication
+                    puts its_caller.first
+                  end
+
+                  puts "You are testing a private method. Set RSpec its_private_method_debug setting to show more info or hide it completly."
+
+                  # TODO Add deprecation warning to drop private method calling
+                  # for the next major release
+                end
+              end
+
               inner_subject.send(attr)
+
             end
           end
         end
@@ -175,6 +199,11 @@ module RSpec
 end
 
 RSpec.configure do |rspec|
+
+  # Add RSpec configuration setting to allow
+  # the user to handle private method invoking warning
+  rspec.add_setting :its_private_method_debug
+
   rspec.extend RSpec::Its
   rspec.backtrace_exclusion_patterns << %r(/lib/rspec/its)
 end

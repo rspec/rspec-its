@@ -12,4 +12,6 @@ end
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.order = 'random'
+
+  # config.its_private_method_debug = true
 end

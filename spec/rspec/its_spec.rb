@@ -9,6 +9,19 @@ module RSpec
           its([]) { expect(described_class).to be Its }
         end
       end
+      context "" do
+        subject do
+          Class.new do
+            private
+
+            def name
+              'Maria'
+            end
+          end.new
+        end
+
+        its(:name, :focus) { should eq('Maria') }
+      end
       context "with explicit subject" do
         subject do
           Class.new do
