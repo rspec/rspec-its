@@ -29,5 +29,3 @@ gem 'contracts', '< 0.16' if RUBY_VERSION < '1.9.0'
 gem 'coveralls', :require => false, :platform => :mri_20
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
-
-gem 'pry'

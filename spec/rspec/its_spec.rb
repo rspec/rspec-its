@@ -9,19 +9,36 @@ module RSpec
           its([]) { expect(described_class).to be Its }
         end
       end
-      context "" do
+
+      context "raises error when calling a private method" do
+        around(:each) do |example|
+          RSpec.configuration.its_raise_errors_for_private_method_calling = true
+          example.run
+          RSpec.configuration.its_raise_errors_for_private_method_calling = false
+        end
+
         subject do
           Class.new do
             private
 
             def name
-              'Maria'
             end
-          end.new
+
+            def self.name
+            end
+            private_class_method :name
+          end
         end
 
-        its(:name, :focus) { should eq('Maria') }
+        context 'on an instance' do
+          its('new.name') { will raise_error }
+        end
+
+        context 'on a class' do
+          its('name') { will raise_error }
+        end
       end
+
       context "with explicit subject" do
         subject do
           Class.new do
