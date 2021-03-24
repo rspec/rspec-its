@@ -1,5 +1,12 @@
 require 'spec_helper'
 
+# class RSpec::Core::Formatters::DeprecationFormatter
+#   Formatters.register self, :baem
+
+#   def baem(notification)
+#     output << 'baem'
+#   end
+# end
 module RSpec
   describe Its do
     describe "#its" do
@@ -9,6 +16,37 @@ module RSpec
           its([]) { expect(described_class).to be Its }
         end
       end
+
+      context "raises error when calling a private method" do
+        subject do
+          Class.new do
+            private
+
+            def name
+              'Maria'
+            end
+
+            def self.name
+              'Maria'
+            end
+            private_class_method :name
+          end
+        end
+
+        before(:each) do
+          # expect(RSpec).to receive(:deprecate)
+          #                    .with('Testing private method name is deprecated', anything)
+        end
+
+        context 'on an instance' do
+          its('new.name') { should eq('Maria') }
+        end
+
+        context 'on a class' do
+          its('name') { should eq('Maria') }
+        end
+      end
+
       context "with explicit subject" do
         subject do
           Class.new do

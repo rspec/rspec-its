@@ -51,7 +51,7 @@ Feature: attribute of subject
             person
           end
 
-          its("phone_numbers.first") { should eq("555-1212") }
+          its("phone_numbers.first") { is_expected.to eq("555-1212") }
         end
       end
       """

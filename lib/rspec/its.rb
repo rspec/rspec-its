@@ -1,6 +1,14 @@
 require 'rspec/its/version'
 require 'rspec/core'
 
+# RSpec.deprecate <<EOS
+# rspec-its deprecates calling _send_ in favour of _public_send_ internally.
+# This change will be introduced with version 2.0.
+# Maybe you're testing private methods in your test suite without your intention.
+# If you need more information about which test is affected,
+# set `config.its_raise_errors_for_private_method_calling = true`
+# EOS
+
 module RSpec
   module Its
 
@@ -131,6 +139,11 @@ module RSpec
           else
             attribute_chain = attribute.to_s.split('.')
             attribute_chain.inject(subject) do |inner_subject, attr|
+
+              if inner_subject.private_methods(false).include?(attr.to_sym)
+                RSpec.deprecate("Testing private method #{attr}", :call_site   => its_caller.first)
+              end
+
               inner_subject.send(attr)
             end
           end
@@ -175,6 +188,11 @@ module RSpec
 end
 
 RSpec.configure do |rspec|
+
+  # Add RSpec configuration setting to allow
+  # the user to handle private method invoking warning
+  rspec.add_setting :its_raise_errors_for_private_method_calling
+
   rspec.extend RSpec::Its
   rspec.backtrace_exclusion_patterns << %r(/lib/rspec/its)
 end
