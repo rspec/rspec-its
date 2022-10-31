@@ -157,7 +157,7 @@ Feature: attribute of subject
     When I run rspec specifying line number 2
     Then the examples should all pass
 
-  Scenario: specify a method throws an expection
+  Scenario: specify a method throws an exception
     Given a file named "example_spec.rb" with:
       """ruby
       class Klass
@@ -175,7 +175,7 @@ Feature: attribute of subject
     When I run rspec
     Then the examples should all pass
 
-  Scenario: specify a method does not throw an expection
+  Scenario: specify a method does not throw an exception
     Given a file named "example_spec.rb" with:
       """ruby
       class Klass; end
