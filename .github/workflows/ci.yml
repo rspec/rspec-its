@@ -18,6 +18,8 @@ jobs:
     strategy:
       matrix:
         ruby:
+          - '3.2'
+          - '3.1'
           - '3.0'
           - 2.7
           - 2.6
@@ -39,15 +41,15 @@ jobs:
             env:
               JRUBY_OPTS: "--dev"
           # Compatibility builds
-          - ruby: '3.0'
+          - ruby: '3.2'
             name_extra: "against RSpec 3.12"
             env:
               BRANCH: "3-12-maintenance"
-          - ruby: '3.0'
+          - ruby: '3.1'
             name_extra: "against RSpec 3.11"
             env:
               BRANCH: "3-11-maintenance"
-          - ruby: '3.0'
+          - ruby: '3.1'
             name_extra: "against RSpec 3.10"
             env:
               BRANCH: "3-10-maintenance"
