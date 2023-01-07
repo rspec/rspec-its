@@ -30,9 +30,6 @@ jobs:
           -
             BRANCH: "main"
         include:
-          - ruby: ruby-head
-            env:
-              RUBY_HEAD: true
           - ruby: jruby-9.2.13.0
             env:
               JRUBY_OPTS: "--dev"
