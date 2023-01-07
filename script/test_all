@@ -14,7 +14,14 @@ bin/rspec spec --format progress --profile
 
 echo "Running cucumber specs"
 
-if ruby -e 'exit(ENV.fetch("BRANCH","3-0-maintenance") =~ /3-[0-8]-maintenance/ ? 0 : 1)'; then
+if [ -z ${BRANCH+" is set"} ]; then
+  echo "BRANCH must be set for this script."
+  exit 1
+else
+  echo "Using $BRANCH"
+fi
+
+if ruby -e 'exit(ENV.fetch("BRANCH") =~ /3-[0-8]-maintenance/ ? 0 : 1)'; then
   TAGS="--tags @pre-3-9"
 else
   TAGS="--tags @post-3-9"

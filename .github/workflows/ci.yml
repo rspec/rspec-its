@@ -9,9 +9,8 @@ on:
     branches:
       - '*'
 env:
+  BRANCH: '3-12-maintenance'
   RSPEC_CI: true
-  # This tells rspec-rails what branch to run in ci
-  RSPEC_VERSION: '= 3.11.0.pre'
 jobs:
   test:
     name: Ruby ${{ matrix.ruby }} ${{ matrix.name_extra || '' }}
@@ -19,7 +18,7 @@ jobs:
     strategy:
       matrix:
         ruby:
-          - 3.0
+          - '3.0'
           - 2.7
           - 2.6
           - 2.5
@@ -43,43 +42,43 @@ jobs:
             env:
               JRUBY_OPTS: "--dev"
           # Compatibility builds
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.9"
             env:
               BRANCH: "3-9-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.8"
             env:
               BRANCH: "3-8-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.7"
             env:
               BRANCH: "3-7-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.6"
             env:
               BRANCH: "3-6-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.5"
             env:
               BRANCH: "3-5-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.4"
             env:
               BRANCH: "3-4-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.3"
             env:
               BRANCH: "3-3-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.2"
             env:
               BRANCH: "3-2-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.1"
             env:
               BRANCH: "3-1-maintenance"
-          - ruby: 3.0
+          - ruby: '3.0'
             name_extra: "against RSpec 3.0"
             env:
               BRANCH: "3-0-maintenance"
