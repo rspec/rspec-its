@@ -40,6 +40,10 @@ Gem::Specification.new do |spec|
   end
 
   spec.add_development_dependency 'bundler',  '> 1.3.0'
-  spec.add_development_dependency 'cucumber', '~> 1.3.8'
+  if RUBY_VERSION.to_f < 2
+    spec.add_development_dependency 'cucumber', '< 3.0.0'
+  else
+    spec.add_development_dependency 'cucumber', '>= 1.3.8'
+  end
   spec.add_development_dependency "aruba",    "~> 0.14.12"
 end
