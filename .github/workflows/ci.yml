@@ -40,6 +40,18 @@ jobs:
               JRUBY_OPTS: "--dev"
           # Compatibility builds
           - ruby: '3.0'
+            name_extra: "against RSpec 3.12"
+            env:
+              BRANCH: "3-12-maintenance"
+          - ruby: '3.0'
+            name_extra: "against RSpec 3.11"
+            env:
+              BRANCH: "3-11-maintenance"
+          - ruby: '3.0'
+            name_extra: "against RSpec 3.10"
+            env:
+              BRANCH: "3-10-maintenance"
+          - ruby: '3.0'
             name_extra: "against RSpec 3.9"
             env:
               BRANCH: "3-9-maintenance"
