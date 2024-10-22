@@ -9,6 +9,7 @@ module RSpec
           its([]) { expect(described_class).to be Its }
         end
       end
+
       context "with explicit subject" do
         subject do
           Class.new do
@@ -374,6 +375,20 @@ module RSpec
           expect { will_not be("back") }.to \
             raise_error(ArgumentError, '`will_not` only supports block expectations')
         end
+      end
+
+      context "when example is redefined" do
+        subject do
+          Class.new do
+            def will_still_work; true; end
+          end.new
+        end
+
+        def self.example(*_args)
+          raise
+        end
+
+        its(:will_still_work) { is_expected.to be true }
       end
     end
   end
