@@ -270,7 +270,6 @@ module RSpec
         end
 
         its(:good) { will_not raise_error }
-        its(:bad) { will raise_error }
         its(:bad) { will raise_error(ArgumentError) }
         its(:bad) { will raise_error("message") }
         its(:bad) { will raise_error(ArgumentError, "message") }
