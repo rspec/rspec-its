@@ -110,17 +110,19 @@ jobs:
   legacy:
     name: Legacy Ruby Builds (${{ matrix.container.version }})
     runs-on: ubuntu-20.04
-    container: ${{ matrix.container.tag }}
+    container:
+      image: ${{ matrix.container.tag }}
+      options: ${{ matrix.container.options || '--add-host github-complains-if-this-is-empty.com:127.0.0.1' }}
     strategy:
       fail-fast: false
       matrix:
         container:
           - version: "2.0"
-            tag: rspec/ci:2.0.0
+            tag: ghcr.io/rspec/docker-ci:2.0.0
           - version: "1.9.3"
-            tag: rspec/ci:1.9.3
+            tag: ghcr.io/rspec/docker-ci:1.9.3
           - version: "JRuby 1.7"
-            tag: rspec/ci:jruby-1.7
+            tag: ghcr.io/rspec/docker-ci:jruby-1.7
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
       LEGACY_CI: true
