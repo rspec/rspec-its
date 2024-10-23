@@ -1,3 +1,8 @@
+Bug fixes:
+
+* Prevent overridden `example` methods causing issues by creating our own
+  Example Group creation alias `__its_example`. (Jon Rowe, #95)
+
 ### 1.3.0 / 2019-04-09
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.2.0...v1.3.0)
 
