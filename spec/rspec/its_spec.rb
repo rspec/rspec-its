@@ -244,6 +244,7 @@ module RSpec
           end
         end
       end
+
       context "with metadata" do
         context "preserves access to metadata that doesn't end in hash" do
           its([], :foo) do |example|
@@ -388,6 +389,42 @@ module RSpec
         end
 
         its(:will_still_work) { is_expected.to be true }
+      end
+    end
+
+    describe "#fits" do
+      describe "focus with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
+
+            fits(:class) { true }
+          end
+        end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
+
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:focus]).to be_truthy
+        end
+      end
+    end
+
+    describe "#xits" do
+      describe "skip with metadata" do
+        let(:group) do
+          RSpec.describe do
+            extend RSpec::Its
+
+            xits(:class) { true }
+          end
+        end
+        let(:reporter) { RSpec::Core::Reporter.new(RSpec::Core::Configuration.new) }
+
+        it "generates a focused example" do
+          group.run(reporter)
+          expect(group.descendants.last.examples.first.metadata[:skip]).to be_truthy
+        end
       end
     end
   end
