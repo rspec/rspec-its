@@ -1,6 +1,8 @@
 require 'rspec/its/version'
 require 'rspec/core'
 
+RSpec::Core::ExampleGroup.define_example_method :__its_example
+
 module RSpec
   module Its
 
@@ -166,7 +168,7 @@ module RSpec
         options << {} unless options.last.kind_of?(Hash)
         options.last.merge!(:caller => its_caller)
 
-        example(nil, *options, &block)
+        __its_example(nil, *options, &block)
 
       end
     end
