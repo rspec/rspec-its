@@ -35,11 +35,6 @@ jobs:
           - ruby: jruby-9.2.13.0
             env:
               JRUBY_OPTS: "--dev"
-          - ruby: jruby-9.1.17.0
-            bundler: 1
-            os: ubuntu-18.04
-            env:
-              JRUBY_OPTS: "--dev"
           # Compatibility builds
           - ruby: '3.2'
             name_extra: "against RSpec 3.12"
@@ -123,6 +118,9 @@ jobs:
             tag: ghcr.io/rspec/docker-ci:1.9.3
           - version: "JRuby 1.7"
             tag: ghcr.io/rspec/docker-ci:jruby-1.7
+          - version: "JRuby 9.1.17.0"
+            tag: ghcr.io/rspec/docker-ci:jruby-9.1.17.0
+            options: "--add-host rubygems.org:151.101.129.227 --add-host api.rubygems.org:151.101.129.227"
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
       LEGACY_CI: true
