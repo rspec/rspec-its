@@ -112,7 +112,7 @@ RSpec.describe RSpec::Its do
       end
 
       context "when it's a hash" do
-        subject { {:a => {:deep => {:key => "value"}}} }
+        subject { { a: { deep: { key: "value" } } } }
 
         its([:a]) { is_expected.to eq({ deep: { key: "value" } }) }
         its(%i[a deep]) { is_expected.to eq({ key: "value" }) }
@@ -253,7 +253,7 @@ RSpec.describe RSpec::Its do
     end
 
     context "preserves access to metadata that ends in hash" do
-      its([], :foo, :bar => 17) do |example|
+      its([], :foo, bar: 17) do |example|
         expect(example.metadata[:foo]).to be(true)
         expect(example.metadata[:bar]).to be(17)
       end

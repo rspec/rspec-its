@@ -127,7 +127,7 @@ module RSpec
     def its(attribute, *options, &block)
       its_caller = caller.grep_v(%r{/lib/rspec/its})
 
-      describe(attribute.to_s, :caller => its_caller) do
+      describe(attribute.to_s, caller: its_caller) do
         let(:__its_subject) do
           if Array === attribute
             if Hash === subject
@@ -169,7 +169,7 @@ module RSpec
         end
 
         options << {} unless options.last.is_a?(Hash)
-        options.last.merge!(:caller => its_caller)
+        options.last.merge!(caller: its_caller)
 
         __its_example(nil, *options, &block)
       end
