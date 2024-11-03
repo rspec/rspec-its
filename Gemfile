@@ -23,4 +23,4 @@ gem 'coveralls', require: false
 gem 'cucumber', '>= 1.3.8'
 gem 'ffi', '~> 1.15.0'
 gem 'matrix', '~> 0.4.2'
-gem 'rake', '~> 13.0.0'
+gem 'rake', '~> 13.2.0'
