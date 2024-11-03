@@ -56,11 +56,7 @@ RSpec.describe RSpec::Its do
       end
       its("name") { should eq("John") }
       its("name.size") { should eq(4) }
-      if RUBY_VERSION >= "2.4.0"
-        its("name.size.class") { should eq(Integer) }
-      else
-        its("name.size.class") { should eq(Fixnum) }
-      end
+      its("name.size.class") { should eq(Integer) }
 
       context "using should_not" do
         its("name") { should_not eq("Paul") }
@@ -95,11 +91,7 @@ RSpec.describe RSpec::Its do
       end
       its([:a]) { should eq("Symbol: a") }
       its(['a']) { should eq("String: a") }
-      if RUBY_VERSION >= "2.4.0"
-          its([:b, 'c', 4]) { should eq("Symbol: b; String: c; Integer: 4") }
-      else
-        its([:b, 'c', 4]) { should eq("Symbol: b; String: c; Fixnum: 4") }
-      end
+      its([:b, 'c', 4]) { should eq("Symbol: b; String: c; Integer: 4") }
       its(:name) { should eq("George") }
       context "when referring to an attribute that doesn't exist" do
         context "it raises an error" do
