@@ -28,11 +28,11 @@ RSpec.describe RSpec::Its do
     end
 
     context "with some metadata" do
-      its(:call_count, :meta) { should eq(2) }
+      its(:call_count, :meta) { is_expected.to eq(2) }
     end
 
     context "with a call counter" do
-      its(:call_count) { should eq(1) }
+      its(:call_count) { is_expected.to eq(1) }
     end
 
     context "with nil value" do
@@ -43,7 +43,8 @@ RSpec.describe RSpec::Its do
           end
         end.new
       end
-      its(:nil_value) { should be_nil }
+
+      its(:nil_value) { is_expected.to be_nil }
     end
 
     context "with nested attributes" do
@@ -54,24 +55,25 @@ RSpec.describe RSpec::Its do
           end
         end.new
       end
-      its("name") { should eq("John") }
-      its("name.size") { should eq(4) }
-      its("name.size.class") { should eq(Integer) }
 
-      context "using should_not" do
-        its("name") { should_not eq("Paul") }
-      end
+      its("name") { is_expected.to eq("John") }
+      its("name.size") { is_expected.to eq(4) }
+      its("name.size.class") { is_expected.to eq(Integer) }
 
-      context "using is_expected" do
-        its("name") { is_expected.to eq("John") }
+      context "using are_expected" do
+        its("name.chars.to_a") { are_expected.to eq(%w[J o h n]) }
       end
 
       context "using will_not" do
         its("name") { will_not raise_error }
       end
 
-      context "using are_expected" do
-        its("name.chars.to_a") { are_expected.to eq(%w[J o h n]) }
+      context "using should" do
+        its("name") { should eq("John") }
+      end
+
+      context "using should_not" do
+        its("name") { should_not eq("Paul") }
       end
     end
 
@@ -80,7 +82,7 @@ RSpec.describe RSpec::Its do
         Class.new do
           def [](*objects)
             objects.map do |object|
-              "#{object.class}: #{object.to_s}"
+              "#{object.class}: #{object}"
             end.join("; ")
           end
 
@@ -89,15 +91,17 @@ RSpec.describe RSpec::Its do
           end
         end.new
       end
-      its([:a]) { should eq("Symbol: a") }
-      its(['a']) { should eq("String: a") }
-      its([:b, 'c', 4]) { should eq("Symbol: b; String: c; Integer: 4") }
-      its(:name) { should eq("George") }
+
+      its([:a]) { is_expected.to eq("Symbol: a") }
+      its(['a']) { is_expected.to eq("String: a") }
+      its([:b, 'c', 4]) { is_expected.to eq("Symbol: b; String: c; Integer: 4") }
+      its(:name) { is_expected.to eq("George") }
+
       context "when referring to an attribute that doesn't exist" do
         context "it raises an error" do
           its(:age) do
             expect do
-              should eq(64)
+              is_expected.to eq(64)
             end.to raise_error(NoMethodError)
           end
 
@@ -110,17 +114,17 @@ RSpec.describe RSpec::Its do
       context "when it's a hash" do
         subject { {:a => {:deep => {:key => "value"}}} }
 
-        its([:a]) { should eq({:deep => {:key => "value"}}) }
-        its([:a, :deep]) { should eq({:key => "value"}) }
-        its([:a, :deep, :key]) { should eq("value") }
+        its([:a]) { is_expected.to eq({ deep: { key: "value" } }) }
+        its(%i[a deep]) { is_expected.to eq({ key: "value" }) }
+        its(%i[a deep key]) { is_expected.to eq("value") }
 
         context "when referring to a key that doesn't exist" do
-          its([:not_here]) { should be_nil }
-          its([:a, :ghost]) { should be_nil }
-          its([:deep, :ghost]) { expect { should eq("missing") }.to raise_error(NoMethodError) }
+          its([:not_here]) { is_expected.to be_nil }
+          its(%i[a ghost]) { are_expected.to be_nil }
+          its(%i[deep ghost]) { expect { is_expected.to eq("missing") }.to raise_error(NoMethodError) }
 
           context "using will" do
-            its([:deep, :ghost]) { will raise_error(NoMethodError) }
+            its(%i[deep ghost]) { will raise_error(NoMethodError) }
           end
         end
       end
@@ -131,9 +135,7 @@ RSpec.describe RSpec::Its do
 
       context "it raises an error" do
         its([:a]) do
-          expect do
-            should eq("Symbol: a")
-          end.to raise_error(NoMethodError)
+          expect { is_expected.to eq("Symbol: a") }.to raise_error(NoMethodError)
         end
 
         context "using will" do
@@ -147,14 +149,14 @@ RSpec.describe RSpec::Its do
         group = RSpec::Core::ExampleGroup.describe(Array) do
           subject { [1, 'a'] }
 
-          its(:last) { should eq("a") }
+          its(:last) { is_expected.to eq("a") }
 
           describe '.first' do
-            def subject;
-              super().first;
+            def subject
+              super.first
             end
 
-            its(:next) { should eq(2) }
+            its(:next) { is_expected.to eq(2) }
           end
         end
 
@@ -175,7 +177,8 @@ RSpec.describe RSpec::Its do
           end
         end.new
       end
-      its(:nil_if_first_time) { should be(nil) }
+
+      its(:nil_if_first_time) { is_expected.to be(nil) }
     end
 
     context "with false subject" do
@@ -191,12 +194,15 @@ RSpec.describe RSpec::Its do
           end
         end.new
       end
-      its(:false_if_first_time) { should be(false) }
+
+      its(:false_if_first_time) { is_expected.to be(false) }
     end
 
     describe 'accessing `subject` in `before` and `let`' do
       subject { 'my subject' }
+
       before { @subject_in_before = subject }
+
       let(:subject_in_let) { subject }
       let!(:eager_loaded_subject_in_let) { subject }
 
@@ -211,7 +217,8 @@ RSpec.describe RSpec::Its do
     describe "in shared_context" do
       shared_context "shared stuff" do
         subject { Array }
-        its(:name) { should eq "Array" }
+
+        its(:name) { is_expected.to eq "Array" }
       end
 
       include_context "shared stuff"
@@ -221,8 +228,9 @@ RSpec.describe RSpec::Its do
       it 'works with an implicit subject' do
         shared = Module.new do
           extend RSpec::SharedContext
-          its(:size) { should eq 0 }
+          its(:size) { is_expected.to eq 0 }
         end
+
         group = RSpec::Core::ExampleGroup.describe(Array) do
           include shared
         end
@@ -236,12 +244,14 @@ RSpec.describe RSpec::Its do
       end
     end
   end
+
   context "with metadata" do
     context "preserves access to metadata that doesn't end in hash" do
       its([], :foo) do |example|
         expect(example.metadata[:foo]).to be(true)
       end
     end
+
     context "preserves access to metadata that ends in hash" do
       its([], :foo, :bar => 17) do |example|
         expect(example.metadata[:foo]).to be(true)
@@ -307,7 +317,7 @@ RSpec.describe RSpec::Its do
     its(:increment) { will change { subject.count }.by_at_least(1) }
     its(:increment) { will change { subject.count }.by_at_most(1) }
 
-    its(:noop) { will_not change { subject.count } }
+    its(:noop) { will_not(change { subject.count }) }
     its(:noop) { will_not change { subject.count }.from(0) }
 
     its(:increment) do

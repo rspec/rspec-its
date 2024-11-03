@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rspec/its/version'
 
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri'] = "https://github.com/rspec/rspec-its/blob/v#{spec.version}/Changelog.md"
   spec.metadata['documentation_uri'] = "https://www.rubydoc.info/gems/rspec-its/#{spec.version}"
   spec.metadata['mailing_list_uri'] = 'https://groups.google.com/forum/#!forum/rspec'
-  spec.metadata['rubygems_mfa_required'] = true
+  spec.metadata['rubygems_mfa_required'] = 'true'
   spec.metadata['source_code_uri'] = 'https://github.com/rspec/rspec-its'
 
   spec.files         = `git ls-files`.split($/) - %w[cucumber.yml]

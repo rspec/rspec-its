@@ -26,33 +26,31 @@ require 'rspec/its'
 
 ## Usage
 
-Use the `its` method to generate a nested example group with
-a single example that specifies the expected value of an attribute of the
-subject using `should`, `should_not` or `is_expected`.
-The `its` method can also specify the block expectations of an attribute of the
-subject using `will` or `will_not`.
+Use the `its` method to generate a nested example group with a single example that specifies the expected value
+of an attribute of the subject using `is_expected`. The `its` method can also specify the block expectations of
+an attribute of the subject using `will` or `will_not`.
 
 `its` accepts a symbol or a string, and a block representing the example.
 
 ```ruby
-its(:size)    { should eq(1) }
-its("length") { should eq(1) }
+its(:size)    { is_expected.to eq(1) }
+its("length") { is_expected.to eq(1) }
 ```
 
 You can use a string with dots to specify a nested attribute (i.e. an
 attribute of the attribute of the subject).
 
 ```ruby
-its("phone_numbers.size") { should_not eq(0) }
+its("phone_numbers.size") { is_expected.to_not eq(0) }
 ```
 
-The following expect-style method is also available:
+The following should-style method is also available:
 
 ```ruby
-its(:size) { is_expected.to eq(1) }
+its(:size) { should eq(1) }
 ```
 
-as is this alias for pluralized use:
+as is an alias of `is_expected` for pluralized use:
 
 ```ruby
 its(:keys) { are_expected.to eq([:key1, :key2]) }
@@ -88,13 +86,13 @@ For other objects, multiple keys within the array will be passed as separate arg
 
 ```ruby
 subject { Matrix[ [:a, :b], [:c, :d] ] }
-its([1,1]) { should eq(:d) }
+its([1,1]) { is_expected.to eq(:d) }
 ```
 
 Metadata arguments are supported.
 
 ```ruby
-its(:size, focus: true) { should eq(1) }
+its(:size, focus: true) { is_expected.to eq(1) }
 ```
 
 ## Contributing
