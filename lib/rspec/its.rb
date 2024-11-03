@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'rspec/its/subject'
 require 'rspec/its/version'
 require 'rspec/core'
 
@@ -128,20 +129,7 @@ module RSpec
       its_caller = caller.grep_v(%r{/lib/rspec/its})
 
       describe(attribute.to_s, caller: its_caller) do
-        let(:__its_subject) do
-          if Array === attribute
-            if Hash === subject
-              attribute.inject(subject) { |inner, attr| inner[attr] }
-            else
-              subject[*attribute]
-            end
-          else
-            attribute_chain = attribute.to_s.split('.')
-            attribute_chain.inject(subject) do |inner_subject, attr|
-              inner_subject.send(attr)
-            end
-          end
-        end
+        let(:__its_subject) { RSpec::Its::Subject.for(attribute, subject) }
 
         def is_expected
           expect(__its_subject)
