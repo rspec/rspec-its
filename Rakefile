@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "bundler"
 Bundler.setup
 Bundler::GemHelper.install_tasks
@@ -13,4 +15,4 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.ruby_opts = %w[-w]
 end
 
-task :default => [:spec, :cucumber]
+task default: %i[spec cucumber]
