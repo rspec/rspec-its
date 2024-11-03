@@ -2,11 +2,16 @@
 
 require 'rspec/its'
 
-Dir['./spec/support/**/*'].each {|f| require f}
+Dir['./spec/support/**/*'].each { |f| require f }
 
 class NullFormatter
   private
+
   def method_missing(method, *args, &block)
+    # ignore
+  end
+
+  def respond_to_missing?(method, *args, &block)
     # ignore
   end
 end

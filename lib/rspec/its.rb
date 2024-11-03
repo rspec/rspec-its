@@ -7,7 +7,6 @@ RSpec::Core::ExampleGroup.define_example_method :__its_example
 
 module RSpec
   module Its
-
     # Creates a nested example group named by the submitted `attribute`,
     # and then generates an example using the submitted block.
     #
