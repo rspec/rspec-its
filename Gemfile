@@ -17,7 +17,7 @@ gemspec
   end
 end
 
-gem 'aruba', '~> 0.14.12'
+gem 'aruba', '~> 2.2.0'
 gem 'bundler', '> 2.0.0'
 gem 'coveralls', require: false
 gem 'cucumber', '>= 1.3.8'
