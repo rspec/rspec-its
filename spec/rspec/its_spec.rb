@@ -393,4 +393,32 @@ RSpec.describe RSpec::Its do
 
     its(:will_still_work) { is_expected.to be true }
   end
+
+  context "with private method" do
+    subject(:klass) do
+      Class.new do
+        def name
+          private_name
+        end
+
+        private
+
+        def private_name
+          "John"
+        end
+      end.new
+    end
+
+    context "when referring indirectly" do
+      its(:name) { is_expected.to eq "John" }
+    end
+
+    context "when attempting to refer directly" do
+      context "it raises an error" do
+        its(:private_name) do
+          expect { is_expected.to eq("John") }.to raise_error(NoMethodError)
+        end
+      end
+    end
+  end
 end

@@ -1,9 +1,11 @@
 ### 2.0.0.pre
 
-Version 2.0.0 is a maintenance release, it drops support for Ruby below 3, and 
-changes the supported RSpec version to "main" and current release series.
-(At the time of writing this is 3.13.x, but it means the current supported
-release only).
+Version 2.0.0 drops support for Ruby below 3, and changes the supported RSpec version to "main" and current release series.
+(At the time of writing this is 3.13.x, but it means the current supported release only).
+
+Breaking changes:
+
+* Now uses `public_send` so that private methods will not be accidentally reachable. (James Ottaway #33, #101)
 
 ### 1.3.1 / 2024-10-23
 [full changelog](http://github.com/rspec/rspec-its/compare/v1.3.0...v1.3.1)
