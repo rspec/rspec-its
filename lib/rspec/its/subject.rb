@@ -15,7 +15,7 @@ module RSpec
         else
           attribute_chain = attribute.to_s.split('.')
           attribute_chain.inject(subject) do |inner_subject, attr|
-            inner_subject.send(attr)
+            inner_subject.public_send(attr)
           end
         end
       end
