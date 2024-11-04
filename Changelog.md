@@ -1,4 +1,4 @@
-### 2.0.0.pre
+### 2.0.0 / 2024-11-04
 
 Version 2.0.0 drops support for Ruby below 3, and changes the supported RSpec version to "main" and current release series.
 (At the time of writing this is 3.13.x, but it means the current supported release only).
