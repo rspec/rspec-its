@@ -159,7 +159,7 @@ Feature: attribute of subject
     When I run rspec
     Then the example should fail
     And the output should contain "Failure/Error: its(:foo) { will_not raise_error }"
-    And the output should contain "expected no Exception, got #<NoMethodError: undefined method `foo'"
+    And the output should match /expected no Exception, got #<NoMethodError: undefined method [`']foo'/
 
   Scenario: examples will warn when using non block expectations
     Given a file named "example_spec.rb" with:
