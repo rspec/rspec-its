@@ -2,6 +2,20 @@
 
 set -e
 
-echo "Installing latest rubygems / bundler"
-yes | gem update --system
-yes | gem install bundler
+function is_ruby_31_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.1)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+if is_ruby_31_plus; then
+  echo "Installing latest rubygems / bundler"
+  yes | gem update --system
+  yes | gem install bundler
+else
+  echo "Installing rubygems 3.2.22 / bundler 2.2.22"
+  yes | gem update --system '3.2.22'
+  yes | gem install bundler -v '2.2.22'
+fi
