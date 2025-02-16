@@ -25,7 +25,7 @@ jobs:
 
   test:
     name: Ruby ${{ matrix.ruby }} ${{ matrix.name_extra || '' }}
-    runs-on: ${{ matrix.os || 'ubuntu-20.04' }}
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       matrix:
         ruby:
