@@ -320,19 +320,30 @@ RSpec.describe RSpec::Its do
     its(:noop) { will_not(change { subject.count }) }
     its(:noop) { will_not change { subject.count }.from(0) }
 
+    require 'rspec/version'
+    if RSpec::Version::STRING.to_f >= 4
+      def error_message(operator)
+        "Using a negated form of the `change` matcher with `#{operator}()` is not supported."
+      end
+    else
+      def error_message(operator)
+        "`expect { }.not_to change { }.#{operator}()` is not supported"
+      end
+    end
+
     its(:increment) do
       expect { will_not change { subject.count }.by(0) }.to \
-        raise_error(NotImplementedError, '`expect { }.not_to change { }.by()` is not supported')
+        raise_error(NotImplementedError, error_message('by'))
     end
 
     its(:increment) do
       expect { will_not change { subject.count }.by_at_least(2) }.to \
-        raise_error(NotImplementedError, '`expect { }.not_to change { }.by_at_least()` is not supported')
+        raise_error(NotImplementedError, error_message('by_at_least'))
     end
 
     its(:increment) do
       expect { will_not change { subject.count }.by_at_most(3) }.to \
-        raise_error(NotImplementedError, '`expect { }.not_to change { }.by_at_most()` is not supported')
+        raise_error(NotImplementedError, error_message('by_at_most'))
     end
   end
 
