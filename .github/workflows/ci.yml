@@ -64,6 +64,5 @@ jobs:
           bundler: ${{ matrix.bundler || 2 }}
           ruby-version: ${{ matrix.ruby }}
       - run: script/update_rubygems_and_install_bundler
-      - run: bundle install --standalone
-      - run: bundle binstubs --all
+      - run: script/bundle
       - run: script/test_all

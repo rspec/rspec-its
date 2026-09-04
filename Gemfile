@@ -10,14 +10,12 @@ gemspec
 
   if File.exist?(library_path) && !ENV['USE_GIT_REPOS']
     gem lib, path: library_path
-  elsif lib == 'rspec'
-    gem 'rspec', git: "https://github.com/rspec/rspec-metagem.git", branch: branch
   else
-    gem lib, git: "https://github.com/rspec/#{lib}.git", branch: branch
+    gem lib, git: "https://github.com/rspec/rspec", glob: "#{lib}/#{lib}.gemspec", branch: branch
   end
 end
 
-gem 'aruba', '~> 2.2.0'
+gem 'aruba', '~> 2.3.0'
 gem 'bundler', '> 2.0.0'
 gem 'coveralls', require: false
 gem 'cucumber', '>= 1.3.8'

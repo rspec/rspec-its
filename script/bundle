@@ -1,0 +1,10 @@
+set -e
+
+echo "Set bundle path to .bundle/gems"
+bundle config set --local path '.bundle/gems'
+
+echo "bundle install --standalone"
+bundle install --standalone
+
+echo "bundle binstubs --all --standalone"
+bundle binstubs --all --standalone
